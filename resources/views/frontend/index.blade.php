@@ -20,7 +20,7 @@
                     <div class="container intro-content">
                         <div class="row justify-content-end">
                             <div class="col-auto col-sm-7 col-md-6 col-lg-5">
-                                <h3 class="intro-subtitle text-third">İndirim</h3>
+                                <h3 class="intro-subtitle text-third">İndirima</h3>
                                 <!-- End .h3 intro-subtitle -->
                                 <h1 class="intro-title">Beats by</h1>
                                 <h1 class="intro-title">Dre Studio 3</h1><!-- End .intro-title -->
