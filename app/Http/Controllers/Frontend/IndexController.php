@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductImages;
+use App\Models\Slider;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -15,7 +16,8 @@ class IndexController extends Controller
         $newproducts = Product::where('new_product', 1)->orderBy('desk', 'ASC')->get();
         $trendproducts = Product::where('trend_product', 1)->orderBy('desk', 'ASC')->get();
         $productcategories = ProductCategory::where('status', 1)->orderBy('desk', 'ASC')->get();
-        return view('frontend.index', compact('newproducts', 'trendproducts', 'productcategories'));
+        $sliders = Slider::where('status', 1)->orderBy('desk', 'ASC')->get();
+        return view('frontend.index', compact('newproducts', 'trendproducts', 'productcategories', 'sliders'));
     }
 
     public function AllProducts()

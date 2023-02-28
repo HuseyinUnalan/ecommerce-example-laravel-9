@@ -15,60 +15,72 @@
           }'>
 
 
-                <div class="intro-slide"
-                    style="background-image: url({{ asset('frontend/images/demos/demo-4/slider/slide-1.png') }});">
-                    <div class="container intro-content">
-                        <div class="row justify-content-end">
-                            <div class="col-auto col-sm-7 col-md-6 col-lg-5">
-                                <h3 class="intro-subtitle text-third">İndirim</h3>
-                                <!-- End .h3 intro-subtitle -->
-                                <h1 class="intro-title">Beats by</h1>
-                                <h1 class="intro-title">Dre Studio 3</h1><!-- End .intro-title -->
-
-                                <div class="intro-price">
-                                    <sup class="intro-old-price">$349,95</sup>
-                                    <span class="text-third">
-                                        $279<sup>.99</sup>
-                                    </span>
-                                </div><!-- End .intro-price -->
-
-                                <a href="category.html" class="btn btn-primary btn-round">
-                                    <span>Shop More</span>
-                                    <i class="icon-long-arrow-right"></i>
-                                </a>
-                            </div><!-- End .col-lg-11 offset-lg-1 -->
-                        </div><!-- End .row -->
-                    </div><!-- End .intro-content -->
-                </div><!-- End .intro-slide -->
-
-                <div class="intro-slide"
-                    style="background-image: url( {{ asset('frontend/images/demos/demo-4/slider/slide-2.png') }});">
-                    <div class="container intro-content">
-                        <div class="row justify-content-end">
-                            <div class="col-auto col-sm-7 col-md-6 col-lg-5">
-                                <h3 class="intro-subtitle text-primary">Yeni Ürün</h3>
-                                <!-- End .h3 intro-subtitle -->
-                                <h1 class="intro-title">Apple iPad Pro <br>12.9 Inch, 64GB </h1>
-                                <!-- End .intro-title -->
-
-                                <div class="intro-price">
-                                    <sup>Today:</sup>
-                                    <span class="text-primary">
-                                        $999<sup>.99</sup>
-                                    </span>
-                                    <sup class="intro-old-price">$349,95</sup>
+                @foreach ($sliders as $slider)
+                    @php
+                        $amount = $slider->selling_price - $slider->discount_price;
+                        $discount = ($amount / $slider->selling_price) * 100;
+                    @endphp
 
 
-                                </div><!-- End .intro-price -->
 
-                                <a href="category.html" class="btn btn-primary btn-round">
-                                    <span>Shop More</span>
-                                    <i class="icon-long-arrow-right"></i>
-                                </a>
-                            </div><!-- End .col-md-6 offset-md-6 -->
-                        </div><!-- End .row -->
-                    </div><!-- End .intro-content -->
-                </div><!-- End .intro-slide -->
+                    @if ($slider->type == 'İndirimli Ürün')
+                        <div class="intro-slide" style="background-image: url({{ asset($slider->photo) }});">
+                            <div class="container intro-content">
+                                <div class="row justify-content-end">
+                                    <div class="col-auto col-sm-7 col-md-6 col-lg-5">
+                                        <h3 class="intro-subtitle text-third">İndirim</h3>
+                                        <!-- End .h3 intro-subtitle -->
+                                        <h1 class="intro-title">{{ $slider->title }}</h1>
+
+
+                                        @if ($slider->discount_price != null)
+                                            <div class="intro-price">
+                                                <sup class="intro-old-price">{{ $slider->selling_price }} TL</sup>
+                                                <span class="text-third">
+                                                    {{ $slider->discount_price }} <sup>TL</sup>
+                                                </span>
+                                            </div><!-- End .intro-price -->
+                                        @endif
+                                        <a href="{{ $slider->link }}" target="_blank" class="btn btn-primary btn-round">
+                                            <span>Ürünü Gör</span>
+                                            <i class="icon-long-arrow-right"></i>
+                                        </a>
+                                    </div><!-- End .col-lg-11 offset-lg-1 -->
+                                </div><!-- End .row -->
+                            </div><!-- End .intro-content -->
+                        </div><!-- End .intro-slide -->
+                    @else
+                        <div class="intro-slide"
+                            style="background-image: url( {{ asset($slider->photo) }});">
+                            <div class="container intro-content">
+                                <div class="row justify-content-end">
+                                    <div class="col-auto col-sm-7 col-md-6 col-lg-5">
+                                        <h3 class="intro-subtitle text-primary">Yeni Ürün</h3>
+                                        <!-- End .h3 intro-subtitle -->
+                                        <h1 class="intro-title"> {{ $slider->title }} </h1>
+                                        <!-- End .intro-title -->
+
+                                        <div class="intro-price">
+                                            <sup>Bugün:</sup>
+                                            <span class="text-primary">
+                                                {{ $slider->selling_price }} <sup>TL</sup>
+                                            </span>
+
+
+                                        </div><!-- End .intro-price -->
+
+                                        <a href="{{ $slider->link }}" target="_blank" class="btn btn-primary btn-round">
+                                            <span>Ürünü Gör</span>
+                                            <i class="icon-long-arrow-right"></i>
+                                        </a>
+                                    </div><!-- End .col-md-6 offset-md-6 -->
+                                </div><!-- End .row -->
+                            </div><!-- End .intro-content -->
+                        </div><!-- End .intro-slide -->
+                    @endif
+                @endforeach
+
+
             </div><!-- End .intro-slider owl-carousel owl-simple -->
 
             <span class="slider-loader"></span><!-- End .slider-loader -->

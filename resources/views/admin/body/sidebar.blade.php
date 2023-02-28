@@ -50,6 +50,17 @@
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="ri-mail-send-line"></i>
+                        <span>Slider İşlemleri</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('add.slider') }}">Slider Ekle</a></li>
+                        <li><a href="{{ route('all.slider') }}">Slider Listesi</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="ri-layout-3-line"></i>
                         <span>Layouts</span>
                     </a>

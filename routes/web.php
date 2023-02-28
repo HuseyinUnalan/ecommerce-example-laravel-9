@@ -69,13 +69,14 @@ Route::get('delete/photo/product/{id}', [ProductController::class, 'DeletePhotoP
 
 
 //For Slider 
-Route::get('all/slider', [SliderController::class, 'AllSlider'])->name('all.product.slider');
-Route::get('add/slider', [SliderController::class, 'AddSlider'])->name('add.product.slider');
+Route::get('all/slider', [SliderController::class, 'AllSlider'])->name('all.slider');
+Route::get('add/slider', [SliderController::class, 'AddSlider'])->name('add.slider');
 Route::post('store/slider', [SliderController::class, 'StoreSlider'])->name('store.slider');
 Route::get('edit/slider/{id}', [SliderController::class, 'EditSlider'])->name('edit.slider');
 Route::post('update/slider', [SliderController::class, 'UpdateSlider'])->name('update.slider');
+Route::get('slider/inactive/{id}', [SliderController::class, 'SliderInactive'])->name('slider.inactive');
+Route::get('slider/active/{id}', [SliderController::class, 'SliderActive'])->name('slider.active');
 Route::get('delete/slider/{id}', [SliderController::class, 'DeleteSlider'])->name('delete.slider');
-
 
 //Frontend All Route
 Route::get('/', [IndexController::class, 'Index'])->name('/');
