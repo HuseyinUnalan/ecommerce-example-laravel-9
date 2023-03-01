@@ -148,7 +148,8 @@
 
                                             <div class="product-body">
                                                 <div class="product-cat">
-                                                    <a href="#">{{ $product['category']['category_name'] }}</a>
+                                                    <a
+                                                        href="{{ url('product/category/' . $product['category']['id'] . '/' . $product['category']['category_slug']) }}">{{ $product['category']['category_name'] }}</a>
                                                 </div><!-- End .product-cat -->
                                                 <h3 class="product-title"><a
                                                         href="{{ url('product/details/' . $product->id . '/' . $product->product_slug) }}">{{ $product->product_name }}</a>

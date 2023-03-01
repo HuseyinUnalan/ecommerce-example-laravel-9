@@ -13,11 +13,13 @@ class IndexController extends Controller
 {
     public function Index()
     {
+        $products = Product::where('status', 1)->orderBy('desk', 'ASC')->get();
         $newproducts = Product::where('new_product', 1)->orderBy('desk', 'ASC')->get();
         $trendproducts = Product::where('trend_product', 1)->orderBy('desk', 'ASC')->get();
+        $adviceproducts = Product::where('advice_product', 1)->orderBy('desk', 'ASC')->get();
         $productcategories = ProductCategory::where('status', 1)->orderBy('desk', 'ASC')->get();
         $sliders = Slider::where('status', 1)->orderBy('desk', 'ASC')->get();
-        return view('frontend.index', compact('newproducts', 'trendproducts', 'productcategories', 'sliders'));
+        return view('frontend.index', compact('products', 'newproducts', 'trendproducts', 'adviceproducts', 'productcategories', 'sliders'));
     }
 
     public function AllProducts()
