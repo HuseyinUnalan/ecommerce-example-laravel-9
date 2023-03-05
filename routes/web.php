@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\IndexController;
 use Illuminate\Support\Facades\Route;
 
@@ -84,6 +85,20 @@ Route::get('products', [IndexController::class, 'AllProducts'])->name('products'
 Route::get('product/category/{id}/{slug}', [IndexController::class, 'ProductCategory'])->name('category.products');
 Route::get('product/details/{id}/{slug}', [IndexController::class, 'ProductDetails']);
 
+// -- For Product Modal --
+Route::get('product/view/modal/{id}/', [IndexController::class, 'ProductViewAjax']);
+
+// --Add To Cart Store Data--
+Route::post('cart/data/store/{id}', [CartController::class, 'AddToCart']);
+
+// --Get Data From Mini Cart--
+Route::get('product/mini/cart', [CartController::class, 'AddMiniCart']);
+
+//Frontend User
+Route::get('/user/logout', [IndexController::class, 'UserLogout'])->name('user.logout');
+
+// Remove mini cart
+Route::get('/minicart/product-remove/{rowId}', [CartController::class, 'RemoveMiniCart']);
 
 Route::middleware([
     'auth:sanctum', config('jetstream.auth_session'), 'verified'

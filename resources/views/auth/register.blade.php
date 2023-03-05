@@ -1,4 +1,68 @@
-<x-guest-layout>
+@extends('frontend.main_master')
+@section('content')
+    <main class="main">
+        <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Login</li>
+                </ol>
+            </div><!-- End .container -->
+        </nav><!-- End .breadcrumb-nav -->
+
+        <div class="login-page bg-image pt-8 pb-8 pt-md-12 pb-md-12 pt-lg-17 pb-lg-17"
+            style="background-image: url({{ asset('frontend/images/demos/demo-4/bg-login-img.png') }})">
+            <div class="container">
+                <div class="form-box">
+                    <div class="form-tab">
+                        <form method="POST" action="{{ route('register') }}">
+                            @csrf
+
+
+                            <div class="form-group">
+                                <label for="register-email-2">Ad Soyad *</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div><!-- End .form-group -->
+
+                            <div class="form-group">
+                                <label for="register-email-2">E-mail *</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div><!-- End .form-group -->
+
+                            <div class="form-group">
+                                <label for="register-password-2">Password *</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div><!-- End .form-group -->
+
+                            <div class="form-group">
+                                <label for="register-password-2">Password *</label>
+                                <input type="password" class="form-control" id="password_confirmation"
+                                    name="password_confirmation" required>
+                            </div><!-- End .form-group -->
+
+                            <div class="form-footer">
+                                <button type="submit" class="btn btn-outline-primary-2">
+                                    <span>SIGN UP</span>
+                                    <i class="icon-long-arrow-right"></i>
+                                </button>
+
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="register-policy-2" required>
+                                    <label class="custom-control-label" for="register-policy-2">I agree to the <a
+                                            href="#">privacy policy</a> *</label>
+                                </div><!-- End .custom-checkbox -->
+                            </div><!-- End .form-footer -->
+                        </form>
+
+                    </div><!-- End .form-tab -->
+                </div><!-- End .form-box -->
+            </div><!-- End .container -->
+        </div><!-- End .login-page section-bg -->
+    </main><!-- End .main -->
+@endsection
+
+{{-- <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
             <x-jet-authentication-card-logo />
@@ -57,4 +121,4 @@
             </div>
         </form>
     </x-jet-authentication-card>
-</x-guest-layout>
+</x-guest-layout> --}}

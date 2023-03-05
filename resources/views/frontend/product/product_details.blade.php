@@ -115,7 +115,7 @@
 
                         <div class="col-md-6">
                             <div class="product-details">
-                                <h1 class="product-title">{{ $products->product_name }}</h1>
+                                <h1 class="product-title" id="pname">{{ $products->product_name }}</h1>
                                 <!-- End .product-title -->
 
                                 <div class="ratings-container">
@@ -157,13 +157,21 @@
                                 <div class="details-filter-row details-row-size">
                                     <label for="qty">Qty:</label>
                                     <div class="product-details-quantity">
-                                        <input type="number" id="qty" class="form-control" value="1"
-                                            min="1" max="10" step="1" data-decimals="0" required>
+                                        <input type="number" class="form-control" id="qty" value="1"
+                                            min="1" required>
                                     </div><!-- End .product-details-quantity -->
                                 </div><!-- End .details-filter-row -->
 
+                                <input type="hidden" id="product_id" value="{{ $products->id }}" min="1">
+
+
+                                <button type="submit" onclick="addToCart()" class="btn btn-primary btn-xs">Sepete
+                                    Ekle</button>
+
                                 <div class="product-details-action">
-                                    <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+
+
+
 
                                     <div class="details-action-wrapper">
                                         <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Add to
@@ -181,17 +189,6 @@
                                         <a href="#">Yellow</a>
                                     </div><!-- End .product-cat -->
 
-                                    <div class="social-icons social-icons-sm">
-                                        <span class="social-label">Share:</span>
-                                        <a href="#" class="social-icon" title="Facebook" target="_blank"><i
-                                                class="icon-facebook-f"></i></a>
-                                        <a href="#" class="social-icon" title="Twitter" target="_blank"><i
-                                                class="icon-twitter"></i></a>
-                                        <a href="#" class="social-icon" title="Instagram" target="_blank"><i
-                                                class="icon-instagram"></i></a>
-                                        <a href="#" class="social-icon" title="Pinterest" target="_blank"><i
-                                                class="icon-pinterest"></i></a>
-                                    </div>
                                 </div><!-- End .product-details-footer -->
                             </div><!-- End .product-details -->
                         </div><!-- End .col-md-6 -->
@@ -583,6 +580,9 @@
             </div><!-- End .container -->
         </div><!-- End .page-content -->
     </main><!-- End .main -->
+
+
+
 
     <script>
         const imgs = document.querySelectorAll('.img-select a');

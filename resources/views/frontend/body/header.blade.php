@@ -34,7 +34,13 @@
                                     </div><!-- End .header-menu -->
                                 </div>
                             </li>
-                            <li><a href="#signin-modal" data-toggle="modal">Sign in / Sign up</a></li>
+                            @auth
+                                <li><a href="{{ route('user.logout') }}">Çıkış Yap</a></li>
+                            @else
+                                <li><a href="{{ route('login') }}">Giriş Yap</a> / <a href="{{ route('register') }}">Kayıt
+                                        Ol</a></li>
+                            @endauth
+
                         </ul>
                     </li>
                 </ul><!-- End .top-menu -->
@@ -116,66 +122,31 @@
                 </div><!-- End .compare-dropdown -->
 
                 <div class="dropdown cart-dropdown">
-                    <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false" data-display="static">
+                    <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" data-display="static">
                         <div class="icon">
                             <i class="icon-shopping-cart"></i>
-                            <span class="cart-count">2</span>
+                            <span class="cart-count" id="cartQty"></span>
                         </div>
                         <p>Cart</p>
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right">
                         <div class="dropdown-cart-products">
-                            <div class="product">
-                                <div class="product-cart-details">
-                                    <h4 class="product-title">
-                                        <a href="product.html">Beige knitted elastic runner shoes</a>
-                                    </h4>
 
-                                    <span class="cart-product-info">
-                                        <span class="cart-product-qty">1</span>
-                                        x $84.00
-                                    </span>
-                                </div><!-- End .product-cart-details -->
+                            {{-- Mini Cart Start With Ajax --}}
+                            <div id="miniCart">
+                                
+                            </div>
+                            {{-- Mini Cart End With Ajax --}}
 
-                                <figure class="product-image-container">
-                                    <a href="product.html" class="product-image">
-                                        <img src="{{ asset('frontend/images/products/cart/product-1.jpg') }}"
-                                            alt="product">
-                                    </a>
-                                </figure>
-                                <a href="#" class="btn-remove" title="Remove Product"><i
-                                        class="icon-close"></i></a>
-                            </div><!-- End .product -->
 
-                            <div class="product">
-                                <div class="product-cart-details">
-                                    <h4 class="product-title">
-                                        <a href="product.html">Blue utility pinafore denim dress</a>
-                                    </h4>
-
-                                    <span class="cart-product-info">
-                                        <span class="cart-product-qty">1</span>
-                                        x $76.00
-                                    </span>
-                                </div><!-- End .product-cart-details -->
-
-                                <figure class="product-image-container">
-                                    <a href="product.html" class="product-image">
-                                        <img src="{{ asset('frontend/images/products/cart/product-2.jpg') }}"
-                                            alt="product">
-                                    </a>
-                                </figure>
-                                <a href="#" class="btn-remove" title="Remove Product"><i
-                                        class="icon-close"></i></a>
-                            </div><!-- End .product -->
                         </div><!-- End .cart-product -->
 
                         <div class="dropdown-cart-total">
                             <span>Total</span>
 
-                            <span class="cart-total-price">$160.00</span>
+                            <span class="cart-total-price" id="cartSubTotal"> </span> TL
                         </div><!-- End .dropdown-cart-total -->
 
                         <div class="dropdown-cart-action">

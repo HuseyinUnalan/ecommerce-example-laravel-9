@@ -8,6 +8,7 @@ use App\Models\ProductCategory;
 use App\Models\ProductImages;
 use App\Models\Slider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class IndexController extends Controller
 {
@@ -15,8 +16,8 @@ class IndexController extends Controller
     {
         $products = Product::where('status', 1)->orderBy('desk', 'ASC')->get();
         $newproducts = Product::where('new_product', 1)->orderBy('desk', 'ASC')->get();
-        $trendproducts = Product::where('trend_product', 1)->orderBy('desk', 'ASC')->get();
-        $adviceproducts = Product::where('advice_product', 1)->orderBy('desk', 'ASC')->get();
+        $trendproducts = Product::where('trend_product', 1)->where('status', 1)->orderBy('desk', 'ASC')->get();
+        $adviceproducts = Product::where('advice_product', 1)->where('status', 1)->orderBy('desk', 'ASC')->get();
         $productcategories = ProductCategory::where('status', 1)->orderBy('desk', 'ASC')->get();
         $sliders = Slider::where('status', 1)->orderBy('desk', 'ASC')->get();
         return view('frontend.index', compact('products', 'newproducts', 'trendproducts', 'adviceproducts', 'productcategories', 'sliders'));
@@ -43,4 +44,22 @@ class IndexController extends Controller
         $productImages = ProductImages::where('product_id', $id)->get();
         return view('frontend.product.product_details', compact('products', 'productImages'));
     }
+
+    // -- For Product Modal --
+    public function ProductViewAjax($id)
+    {
+        $products = Product::with('category')->findOrFail($id);
+
+        return response()->json(array(
+            'product' => $products
+        ));
+    }
+
+    public function UserLogout()
+    {
+        Auth::logout();
+        return redirect()->route('login');
+    }
 }
+
+?>

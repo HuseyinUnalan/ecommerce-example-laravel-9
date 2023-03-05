@@ -9,6 +9,7 @@
     <title>Molla - Bootstrap eCommerce Template</title>
     <meta name="keywords" content="HTML5 Template">
     <meta name="description" content="Molla - Bootstrap eCommerce Template">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="author" content="p-themes">
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('frontend/images/icons/apple-touch-icon.png') }}">
@@ -29,6 +30,8 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/plugins/owl-carousel/owl.carousel.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/plugins/magnific-popup/magnific-popup.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/plugins/jquery.countdown.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/vendor/font-awesome/css/all.min.css') }}">
+
     <!-- Main CSS File -->
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/skins/skin-demo-4.css') }}">
@@ -393,6 +396,9 @@
         </div><!-- End .modal-dialog -->
     </div><!-- End .modal -->
 
+
+
+
     {{-- <div class="container newsletter-popup-container mfp-hide" id="newsletter-popup-form">
         <div class="row justify-content-center">
             <div class="col-10">
@@ -442,6 +448,239 @@
     <!-- Main JS File -->
     <script src="{{ asset('frontend/js/main.js') }}"></script>
     <script src="{{ asset('frontend/js/demos/demo-4.js') }}"></script>
+
+    <!-- Sweet Alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Quick View Modal Start -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><span id="pname"></span></h5>
+                    <button type="button" class="close" id="closeModal" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-4 p-5">
+                            <div class="card" style="width: 18rem;">
+                                <img src="..." class="card-img-top" style="width: 200px; height: 200px;"
+                                    id="pimage">
+                            </div>
+                        </div>
+
+                        <div class="col-md-5 p-5">
+                            <ul class="list-group">
+                                <li class="list-group-item">Fiyat :
+
+                                    <strong class="text-success">
+                                        <span id="pprice"></span> TL
+                                    </strong>
+                                    <del id="oldprice" class="text-danger"></del>
+
+                                </li>
+                                <a href="" id="pcategorylink">
+                                    <li class="list-group-item">Kategori : <strong id="pcategory"></strong> </li>
+                                </a>
+                            </ul>
+                        </div>
+
+                        <div class="col-md-3 p-5">
+                            <div class="form-group">
+                                <label for="qty">Adet</label>
+                                <input type="number" name="" id="qty" value="1" min="1"
+                                    class="form-control">
+
+                            </div>
+                        </div>
+
+                        <div class="p-5">
+                            <input type="hidden" id="product_id">
+                            <button type="submit" class="btn btn-primary btn-xs" onclick="addToCart()">Sepete
+                                Ekle</button>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Quick View Modal End -->
+
+    <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        })
+
+        //Start Product View with Modal
+
+        function productView(id) {
+            // alert(id)
+            $.ajax({
+                type: 'GET',
+                url: '/product/view/modal/' + id,
+                dataType: 'json',
+                success: function(data) {
+                    // console.log(data);
+                    $('#pname').text(data.product.product_name);
+                    $('#price').text(data.product.selling_price);
+                    $('#pcategory').text(data.product.category.category_name);
+                    $('#pcategorylink').attr('href', 'product/category/' + data.product.category.id + '/' + data
+                        .product.category.category_slug);
+                    $('#pimage').attr('src', '/' + data.product.product_thambnail_photo);
+                    $('#product_id').val(id);
+                    $('#qty').val(1);
+                    //Product Price
+
+                    if (data.product.discount_price == null) {
+                        $('#pprice').text('');
+                        $('#oldprice').text('');
+                        $('#pprice').text(data.product.selling_price);
+                    } else {
+                        $('#pprice').text(data.product.discount_price);
+                        $('#oldprice').text(data.product.selling_price);
+                    }
+
+                }
+            })
+        }
+        //End Product View with Modal
+
+
+        //Start Add To Cart Product
+        function addToCart() {
+            var product_name = $('#pname').text();
+            var id = $('#product_id').val();
+            var quantity = $('#qty').val();
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                data: {
+                    quantity: quantity,
+                    product_name: product_name
+                },
+                url: "/cart/data/store/" + id,
+                success: function(data) {
+
+                    miniCart()
+                    $('#closeModal').click();
+                    // console.log(data);
+
+                    //Start Message
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 3000
+                    })
+                    if ($.isEmptyObject(data.error)) {
+                        Toast.fire({
+                            type: 'success',
+                            title: data.success
+                        })
+                    } else {
+                        Toast.fire({
+                            type: 'error',
+                            title: data.error
+                        })
+                    }
+                }
+            })
+        }
+        //End Add To Cart Product
+    </script>
+
+
+    <script type="text/javascript">
+        function miniCart() {
+            $.ajax({
+                type: 'GET',
+                url: '/product/mini/cart',
+                dataType: 'json',
+                success: function(response) {
+                    console.log(response)
+
+                    $('span[id=cartSubTotal]').text(response.cartTotal);
+                    $('#cartQty').text(response.cartQty);
+
+                    var miniCart = ""
+                    $.each(response.carts, function(key, value) {
+                        miniCart += `<div class="product">
+                                <div class="product-cart-details">
+                                    <h4 class="product-title">
+                                        <a href="product.html">${value.name}</a>
+                                    </h4>
+
+                                    <span class="cart-product-info">
+                                        <span class="cart-product-qty"> ${value.qty}</span>
+                                        x ${value.price}
+                                    </span>
+                                    
+                                </div><!-- End .product-cart-details -->
+
+                                <figure class="product-image-container">
+                                    <a href="product.html" class="product-image">
+                                        <img src="/${value.options.image}"
+                                            alt="product">
+                                    </a>
+                                </figure>
+                                <button type="submit" id="${value.rowId}" onclick="miniCartRemove(this.id)" class="btn-remove" title="Remove Product"><i
+                                        class="icon-close"></i></button>
+                            </div><!-- End .product -->`
+                    });
+
+                    $('#miniCart').html(miniCart);
+                }
+            })
+        }
+        miniCart();
+
+        //Mini Cart REmove Start
+        function miniCartRemove(rowId) {
+            $.ajax({
+                type: 'GET',
+                url: '/minicart/product-remove/' + rowId,
+                dataType: 'json',
+                success: function(data) {
+                    miniCart();
+                    // Start Message 
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 3000
+                    })
+                    if ($.isEmptyObject(data.error)) {
+                        Toast.fire({
+                            type: 'success',
+                            title: data.success
+                        })
+                    } else {
+                        Toast.fire({
+                            type: 'error',
+                            title: data.error
+                        })
+                    }
+                    // End Message 
+                }
+            });
+        }
+        //Mini Cart REmove End
+    </script>
+
+
+
 </body>
 
 
