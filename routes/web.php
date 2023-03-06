@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\IndexController;
+use App\Http\Controllers\Frontend\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -99,6 +100,20 @@ Route::get('/user/logout', [IndexController::class, 'UserLogout'])->name('user.l
 
 // Remove mini cart
 Route::get('/minicart/product-remove/{rowId}', [CartController::class, 'RemoveMiniCart']);
+
+// --Add To Wish List--
+Route::post('/add-to-wishlist/{product_id}', [CartController::class, 'AddToWishlist']);
+
+
+Route::group(['prefiz' => 'user', 'middleware' => ['user', 'auth'], 'namespace' => 'User'], function () {
+    // --Wishlist Page--
+    Route::get('wishlist', [WishlistController::class, 'ViewWishlist'])->name('wishlist');
+    Route::get('get-wishlist-product', [WishlistController::class, 'GetWishlistProduct']);
+    Route::get('wishlist-remove/{id}', [WishlistController::class, 'RemoveWishlistProduct']);
+});
+
+
+
 
 Route::middleware([
     'auth:sanctum', config('jetstream.auth_session'), 'verified'

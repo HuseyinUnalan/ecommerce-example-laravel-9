@@ -601,6 +601,7 @@
     </script>
 
 
+
     <script type="text/javascript">
         function miniCart() {
             $.ajax({
@@ -636,6 +637,8 @@
                                 </figure>
                                 <button type="submit" id="${value.rowId}" onclick="miniCartRemove(this.id)" class="btn-remove" title="Remove Product"><i
                                         class="icon-close"></i></button>
+                                         
+
                             </div><!-- End .product -->`
                     });
 
@@ -645,7 +648,7 @@
         }
         miniCart();
 
-        //Mini Cart REmove Start
+        //Mini Cart Remove Start
         function miniCartRemove(rowId) {
             $.ajax({
                 type: 'GET',
@@ -676,9 +679,134 @@
                 }
             });
         }
-        //Mini Cart REmove End
+        //Mini Cart Remove End
     </script>
 
+    {{-- Add Wish List Start --}}
+    <script type="text/javascript">
+        function addToWishList(product_id) {
+            $.ajax({
+                type: "POST",
+                dataType: 'json',
+                url: "/add-to-wishlist/" + product_id,
+                success: function(data) {
+                    // Start Message 
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+
+                        showConfirmButton: false,
+                        timer: 3000
+                    })
+                    if ($.isEmptyObject(data.error)) {
+                        Toast.fire({
+                            type: 'success',
+                            icon: 'success',
+                            title: data.success
+                        })
+                    } else {
+                        Toast.fire({
+                            type: 'error',
+                            icon: 'error',
+                            title: data.error
+                        })
+                    }
+                    // End Message 
+                }
+            })
+        }
+    </script>
+    {{-- Add Wish List End  --}}
+
+
+    {{-- Load Wish List Start  --}}
+    <script type="text/javascript">
+        function wishlist() {
+            $.ajax({
+                type: 'GET',
+                url: '/get-wishlist-product',
+                dataType: 'json',
+                success: function(response) {
+                    // console.log(response)
+
+                    var rows = ""
+
+                    $.each(response, function(key, value) {
+                        rows += ` <tr>
+                            <td class="product-col">
+                                <div class="product">
+                                    <figure class="product-media">
+                                        <a href="#">
+                                            <img src="/${value.product.product_thambnail_photo}" alt="Product image">
+                                        </a>
+                                    </figure>
+
+                                    <h3 class="product-title">
+                                        <a href="#">${value.product.product_name}</a>
+                                    </h3><!-- End .product-title -->
+                                </div><!-- End .product -->
+                            </td>
+                            <td class="price-col">
+                                ${value.product.discount_price == null
+                                ? `${value.product.selling_price} TL`
+                                : `<del> ${value.product.selling_price} TL </del><br>
+                                                ${value.product.discount_price} TL`
+                                }
+                                </td>
+                            <td class="stock-col"><span class="in-stock">In stock</span></td>
+                          
+                            <td class="remove-col">
+                                <button class="btn btn-primary icon" type="button" title="Add Cart" data-toggle="modal" data-target="#exampleModal" id="${value.product_id}" onclick="productView(this.id)"> Add to Cart </button>
+                                </td>
+                                
+                                <td>
+                                    <button type="submit" id="${value.id}" onclick="wishlistRemove(this.id)" class="btn-remove" title="Remove Product"><i
+                                        class="icon-close"></i></button>
+                                    </td>
+                        </tr>`
+                    });
+
+                    $('#wishlist').html(rows);
+                }
+            })
+        }
+        wishlist();
+
+        //Wishlist Remove Start
+        function wishlistRemove(id) {
+            $.ajax({
+                type: 'GET',
+                url: '/wishlist-remove/' + id,
+                dataType: 'json',
+                success: function(data) {
+                    wishlist();
+                    // Start Message 
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000
+                    })
+                    if ($.isEmptyObject(data.error)) {
+                        Toast.fire({
+                            type: 'success',
+                            icon: 'success',
+                            title: data.success
+                        })
+                    } else {
+                        Toast.fire({
+                            type: 'error',
+                            icon: 'error',
+                            title: data.error
+                        })
+                    }
+                    // End Message 
+                }
+            });
+        }
+        //Wishlist Remove End
+    </script>
+    {{-- Load Wish List End  --}}
 
 
 </body>

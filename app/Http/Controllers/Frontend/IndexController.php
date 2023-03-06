@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductImages;
 use App\Models\Slider;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -61,5 +62,3 @@ class IndexController extends Controller
         return redirect()->route('login');
     }
 }
-
-?>

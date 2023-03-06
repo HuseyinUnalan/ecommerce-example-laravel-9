@@ -670,13 +670,17 @@
                                                 </a>
 
                                                 <div class="product-action-vertical">
-                                                    <a href="#" class="btn-product-icon btn-wishlist"
-                                                        title="Add to wishlist"></a>
+                                                    <button type="button" id="{{ $trendproduct->id }}"
+                                                        onclick="addToWishList(this.id)"
+                                                        class="btn-product-icon btn-wishlist"
+                                                        title="Add to wishlist"></button>
                                                 </div><!-- End .product-action -->
 
                                                 <div class="product-action">
                                                     <a href="#" class="btn-product btn-cart"
                                                         title="Add to cart"><span>add to cart</span></a>
+
+                                                        
                                                     <a data-toggle="modal" data-target="#exampleModal"
                                                         id="{{ $trendproduct->id }}" onclick="productView(this.id)"
                                                         class="btn-product" title="Quick view"><i
