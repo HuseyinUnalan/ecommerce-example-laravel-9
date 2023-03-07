@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\CartPageController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\WishlistController;
 use Illuminate\Support\Facades\Route;
@@ -105,14 +106,19 @@ Route::get('/minicart/product-remove/{rowId}', [CartController::class, 'RemoveMi
 Route::post('/add-to-wishlist/{product_id}', [CartController::class, 'AddToWishlist']);
 
 
-Route::group(['prefiz' => 'user', 'middleware' => ['user', 'auth'], 'namespace' => 'User'], function () {
+Route::group(['middleware' => ['user', 'auth'], 'namespace' => 'User'], function () {
     // --Wishlist Page--
     Route::get('wishlist', [WishlistController::class, 'ViewWishlist'])->name('wishlist');
     Route::get('get-wishlist-product', [WishlistController::class, 'GetWishlistProduct']);
     Route::get('wishlist-remove/{id}', [WishlistController::class, 'RemoveWishlistProduct']);
 });
 
-
+// --My Cart Page--
+Route::get('mycart', [CartPageController::class, 'MyCart'])->name('mycart');
+Route::get('get-cart-product', [CartPageController::class, 'GetCartProduct']);
+Route::get('cart-remove/{rowId}', [CartPageController::class, 'RemoveCartProduct']);
+Route::get('cart-increment/{rowId}', [CartPageController::class, 'CartIncrement']);
+Route::get('cart-decrement/{rowId}', [CartPageController::class, 'CartDecrement']);
 
 
 Route::middleware([
