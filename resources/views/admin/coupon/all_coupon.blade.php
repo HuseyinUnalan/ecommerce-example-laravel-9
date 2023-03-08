@@ -7,12 +7,12 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0">Ürün Listesi</h4>
+                        <h4 class="mb-sm-0">Kupon Listesi</h4>
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">Ürün İşlemleri </a></li>
-                                <li class="breadcrumb-item active">Ürün Listesi</li>
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Kupon İşlemleri </a></li>
+                                <li class="breadcrumb-item active">Kupon Listesi</li>
                             </ol>
                         </div>
 
@@ -42,6 +42,8 @@
                                                 <tr role="row">
                                                     <th>#</th>
                                                     <th>Başlık</th>
+                                                    <th>İndirim Tutarı</th>
+                                                    <th>Geçerlilik Tarihi</th>
                                                     <th>Durum</th>
                                                     <th>İşlemler</th>
                                                 </tr>
@@ -52,49 +54,48 @@
 
                                                 @php($i = 1)
 
-                                                @foreach ($products as $item)
+                                                @foreach ($coupons as $item)
                                                     <tr class="odd">
                                                         <td>{{ $i++ }}</td>
-                                                        <td>{{ $item->product_name }}</td>
+                                                        <td>{{ $item->coupon_name }}</td>
+                                                        <td>{{ $item->coupon_discount }} %</td>
                                                         <td>
-                                                            @if ($item->status == 1)
+                                                            {{ Carbon\Carbon::parse($item->coupon_validity)->format('D, d F Y') }}
+                                                        </td>
+                                                        <td>
+                                                            @if ($item->coupon_validity >= Carbon\Carbon::now()->format('Y-m-d'))
                                                                 <div class="font-size-13"><i
-                                                                        class="ri-checkbox-blank-circle-fill font-size-10 text-success align-middle me-2"></i>Active
+                                                                        class="ri-checkbox-blank-circle-fill font-size-10 text-success align-middle me-2"></i>Geçerli
                                                                 </div>
                                                             @else
                                                                 <div class="font-size-13"><i
-                                                                        class="ri-checkbox-blank-circle-fill font-size-10 text-danger align-middle me-2"></i>Not
+                                                                        class="ri-checkbox-blank-circle-fill font-size-10 text-danger align-middle me-2"></i>Geçersiz
                                                                     Active
                                                                 </div>
                                                             @endif
                                                         </td>
                                                         <td>
-                                                            <a href="{{ route('edit.product', $item->id) }}">
+                                                            <a href="{{ route('edit.coupon', $item->id) }}">
                                                                 <button class="btn btn-primary btn-sm">
                                                                     <i class="far fa-edit"></i>
                                                                 </button>
                                                             </a>
 
-                                                            <a href="{{ route('delete.product', $item->id) }}"
+                                                            <a href="{{ route('delete.coupon', $item->id) }}"
                                                                 id="delete">
                                                                 <button class="btn btn-danger btn-sm">
                                                                     <i class="fa fa-trash"></i>
                                                                 </button>
                                                             </a>
 
-                                                            <a href="{{ route('add.photo.product', $item->id) }}"
-                                                                class="btn btn-success btn-sm">add photo</a>
-
-                                                            <a href="{{ route('edit.photo.product', $item->id) }}"
-                                                                class="btn btn-success btn-sm">edit photo</a>
 
                                                             @if ($item->status == 1)
-                                                                <a href="{{ route('product.inactive', $item->id) }}"
+                                                                <a href="{{ route('coupon.inactive', $item->id) }}"
                                                                     class="btn btn-danger btn-sm"><i
                                                                         class="fa fa-arrow-down"
                                                                         title="Inactive Now"></i></a>
                                                             @else
-                                                                <a href="{{ route('product.active', $item->id) }}"
+                                                                <a href="{{ route('coupon.active', $item->id) }}"
                                                                     class="btn btn-success btn-sm"><i class="fa fa-arrow-up"
                                                                         title="Active Now"></i></a>
                                                             @endif

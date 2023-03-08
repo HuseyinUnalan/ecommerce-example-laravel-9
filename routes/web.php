@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminProfileController;
+use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\AdminController;
@@ -80,6 +81,18 @@ Route::post('update/slider', [SliderController::class, 'UpdateSlider'])->name('u
 Route::get('slider/inactive/{id}', [SliderController::class, 'SliderInactive'])->name('slider.inactive');
 Route::get('slider/active/{id}', [SliderController::class, 'SliderActive'])->name('slider.active');
 Route::get('delete/slider/{id}', [SliderController::class, 'DeleteSlider'])->name('delete.slider');
+
+
+//For Coupon 
+Route::get('all/coupon', [CouponController::class, 'AllCoupon'])->name('all.coupon');
+Route::get('add/coupon', [CouponController::class, 'AddCoupon'])->name('add.coupon');
+Route::post('store/coupon', [CouponController::class, 'StoreCoupon'])->name('store.coupon');
+Route::get('edit/coupon/{id}', [CouponController::class, 'EditCoupon'])->name('edit.coupon');
+Route::post('update/coupon', [CouponController::class, 'UpdateCoupon'])->name('update.coupon');
+Route::get('coupon/inactive/{id}', [CouponController::class, 'CouponInactive'])->name('coupon.inactive');
+Route::get('coupon/active/{id}', [CouponController::class, 'CouponActive'])->name('coupon.active');
+Route::get('delete/coupon/{id}', [CouponController::class, 'DeleteCoupon'])->name('delete.coupon');
+
 
 //Frontend All Route
 Route::get('/', [IndexController::class, 'Index'])->name('/');
