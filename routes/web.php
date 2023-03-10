@@ -153,6 +153,13 @@ Route::get('cart-remove/{rowId}', [CartPageController::class, 'RemoveCartProduct
 Route::get('cart-increment/{rowId}', [CartPageController::class, 'CartIncrement']);
 Route::get('cart-decrement/{rowId}', [CartPageController::class, 'CartDecrement']);
 
+// --Coupon Apply--
+Route::post('/coupon-apply', [CartController::class, 'CouponApply']);
+Route::get('/coupon-calculation', [CartController::class, 'CouponCalculation']);
+Route::get('/coupon-remove', [CartController::class, 'CouponRemove']);
+
+
+
 
 Route::middleware([
     'auth:sanctum', config('jetstream.auth_session'), 'verified'
