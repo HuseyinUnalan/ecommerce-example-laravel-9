@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminProfileController;
+use App\Http\Controllers\Admin\CargoController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ShippingController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Frontend\CartController;
@@ -92,6 +94,24 @@ Route::post('update/coupon', [CouponController::class, 'UpdateCoupon'])->name('u
 Route::get('coupon/inactive/{id}', [CouponController::class, 'CouponInactive'])->name('coupon.inactive');
 Route::get('coupon/active/{id}', [CouponController::class, 'CouponActive'])->name('coupon.active');
 Route::get('delete/coupon/{id}', [CouponController::class, 'DeleteCoupon'])->name('delete.coupon');
+
+
+//For Shipping 
+Route::get('all/shipping', [ShippingController::class, 'AllShipping'])->name('all.shipping');
+Route::get('add/shipping', [ShippingController::class, 'AddShipping'])->name('add.shipping');
+Route::post('store/shipping', [ShippingController::class, 'StoreShipping'])->name('store.shipping');
+Route::get('edit/shipping/{id}', [ShippingController::class, 'EditShipping'])->name('edit.shipping');
+Route::post('update/shipping', [ShippingController::class, 'UpdateShipping'])->name('update.shipping');
+Route::get('delete/shipping/{id}', [ShippingController::class, 'DeleteShipping'])->name('delete.shipping');
+
+
+//For Shipping District
+Route::get('all/shipping/district', [ShippingController::class, 'AllShippingDistrict'])->name('all.shipping.district');
+Route::get('add/shipping/district', [ShippingController::class, 'AddShippingDistrict'])->name('add.shipping.district');
+Route::post('store/shipping/district', [ShippingController::class, 'StoreShippingDistrict'])->name('store.shipping.district');
+Route::get('edit/shipping/district/{id}', [ShippingController::class, 'EditShippingDistrict'])->name('edit.shipping.district');
+Route::post('update/shipping/district', [ShippingController::class, 'UpdateShippingDistrict'])->name('update.shipping.district');
+Route::get('delete/shipping/district/{id}', [ShippingController::class, 'DeleteShippingDistrict'])->name('delete.shipping.district');
 
 
 //Frontend All Route
