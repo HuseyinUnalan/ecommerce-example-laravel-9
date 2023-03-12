@@ -17,6 +17,7 @@
                 <div class="form-box">
                     <div class="form-tab">
 
+
                         <form method="POST" action="{{ isset($guard) ? url($guard . '/login') : route('login') }}">
                             @csrf
                             <div class="form-group">
@@ -53,4 +54,3 @@
     </main><!-- End .main -->
     <br><br>
 @endsection
-

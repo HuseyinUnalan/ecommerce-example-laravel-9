@@ -37,6 +37,9 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/skins/skin-demo-4.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/demos/demo-4.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/plugins/nouislider/nouislider.css') }}">
+
+        <!-- Toastr Css-->
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
 </head>
 
 <body>
@@ -514,6 +517,31 @@
     </div>
     <!-- Quick View Modal End -->
 
+
+    <!-- Toastr js -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script>
+        @if (Session::has('message'))
+            var type = "{{ Session::get('alert-type', 'info') }}"
+            switch (type) {
+                case 'info':
+                    toastr.info(" {{ Session::get('message') }} ");
+                    break;
+                case 'success':
+                    toastr.success(" {{ Session::get('message') }} ");
+                    break;
+                case 'warning':
+                    toastr.warning(" {{ Session::get('message') }} ");
+                    break;
+                case 'error':
+                    toastr.error(" {{ Session::get('message') }} ");
+                    break;
+            }
+        @endif
+    </script>
+
+
     <script type="text/javascript">
         $.ajaxSetup({
             headers: {
@@ -750,7 +778,7 @@
                                 ${value.product.discount_price == null
                                 ? `${value.product.selling_price} TL`
                                 : `<del> ${value.product.selling_price} TL </del><br>
-                                                                                                                                                                                                        ${value.product.discount_price} TL`
+                                                                                                                                                                                                                    ${value.product.discount_price} TL`
                                 }
                                 </td>
                             <td class="stock-col"><span class="in-stock">In stock</span></td>
@@ -864,13 +892,13 @@
                                                         
                                                     ${value.qty > 1
                                             ? ` <button type="submit" id="${value.rowId}" 
-                                                                                                                                        onclick="cartDecrement(this.id)" 
-                                                                                                                                        class="btn-remove"><i class="icon-minus"></i>
-                                                                                                                                        </button>`
+                                                                                                                                                    onclick="cartDecrement(this.id)" 
+                                                                                                                                                    class="btn-remove"><i class="icon-minus"></i>
+                                                                                                                                                    </button>`
                                     : ` <button type="submit" id="${value.rowId}" 
-                                                                                                                                        onclick="cartDecrement(this.id)" 
-                                                                                                                                        class="btn-remove" disabled><i class="icon-minus"></i>
-                                                                                                                                        </button>`
+                                                                                                                                                    onclick="cartDecrement(this.id)" 
+                                                                                                                                                    class="btn-remove" disabled><i class="icon-minus"></i>
+                                                                                                                                                    </button>`
                                     }
 
 
