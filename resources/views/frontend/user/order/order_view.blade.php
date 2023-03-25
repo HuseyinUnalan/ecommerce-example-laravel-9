@@ -4,15 +4,14 @@
         <div class="page-header text-center"
             style="background-image: url('{{ asset('frontend/images/page-header-bg.jpg') }}')">
             <div class="container">
-                <h1 class="page-title">Wishlist<span>Shop</span></h1>
+                <h1 class="page-title">Siparişlerim<span>Shop</span></h1>
             </div><!-- End .container -->
         </div><!-- End .page-header -->
         <nav aria-label="breadcrumb" class="breadcrumb-nav">
             <div class="container">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Shop</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Wishlist</li>
+                    <li class="breadcrumb-item"><a href="{{ route('/') }}">Anasayfa</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Siparişlerim</li>
                 </ol>
             </div><!-- End .container -->
         </nav><!-- End .breadcrumb-nav -->
@@ -22,18 +21,41 @@
                 <table class="table table-wishlist table-mobile">
                     <thead>
                         <tr>
-                            <th>Product</th>
-                            <th>Price</th>
-                            <th>Stock Status</th>
+                            <th>Tarih</th>
+                            <th>Toplam Tutar</th>
+                            <th>Ödeme</th>
+                            <th>Fatura</th>
+                            <th>Sipariş Durum</th>
                             <th></th>
                             <th></th>
                         </tr>
                     </thead>
 
-                    <tbody id="wishlist">
-                  
-                    
-                    
+                    <tbody>
+                        @foreach ($orders as $order)
+                            <tr>
+
+                                <td class="price-col">{{ $order->order_date }}</td>
+                                <td class="stock-col">{{ $order->amount }} TL</td>
+                                <td class="stock-col">{{ $order->payment_method }}</td>
+                                <td class="stock-col"> {{ $order->invoice_no }}</td>
+                                <td class="stock-col"> {{ $order->status }}</td>
+
+                                <td>
+                                    <a href="{{ url('order_details/' . $order->id) }}">
+                                        <button class="btn btn-primary">Görüntüle</button>
+                                    </a>
+
+                                </td>
+                                <td>
+                                    <a href="{{ url('invoice_download/' . $order->id) }}" target="_blank">
+                                        <button class="btn btn-info">İndir</button>
+                                    </a>
+                                </td>
+
+                            </tr>
+                        @endforeach
+
                     </tbody>
                 </table><!-- End .table table-wishlist -->
                 <div class="wishlist-share">

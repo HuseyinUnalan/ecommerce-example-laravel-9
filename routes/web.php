@@ -7,10 +7,13 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ShippingController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Frontend\AllUserController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CartPageController;
+use App\Http\Controllers\Frontend\CashController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\IndexController;
+use App\Http\Controllers\Frontend\StripeController;
 use App\Http\Controllers\Frontend\WishlistController;
 use Illuminate\Support\Facades\Route;
 
@@ -139,12 +142,27 @@ Route::get('/minicart/product-remove/{rowId}', [CartController::class, 'RemoveMi
 // --Add To Wish List--
 Route::post('/add-to-wishlist/{product_id}', [CartController::class, 'AddToWishlist']);
 
+//MY ORd
+
 
 Route::group(['middleware' => ['user', 'auth'], 'namespace' => 'User'], function () {
     // --Wishlist Page--
     Route::get('wishlist', [WishlistController::class, 'ViewWishlist'])->name('wishlist');
     Route::get('get-wishlist-product', [WishlistController::class, 'GetWishlistProduct']);
     Route::get('wishlist-remove/{id}', [WishlistController::class, 'RemoveWishlistProduct']);
+    
+    //--Stripe--
+    Route::post('/stripe/order', [StripeController::class, 'StripeOrder'])->name('stripe.order');
+
+     //--Cash--
+     Route::post('/cash/order', [CashController::class, 'CashOrder'])->name('cash.order');
+
+    //--My Orders--
+    Route::get('my/orders', [AllUserController::class, 'MyOrders'])->name('my.orders');
+    Route::get('order_details/{order_id}', [AllUserController::class, 'OrderDetails']);
+    Route::get('invoice_download/{order_id}', [AllUserController::class, 'InvoiceDownload']);
+
+
 });
 
 // --My Cart Page--

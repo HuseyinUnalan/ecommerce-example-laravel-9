@@ -184,21 +184,24 @@
                                                 <label for="">Cash</label>
                                                 <input type="radio" name="payment_method" value="cash">
                                             </div> <!-- end col md 4 -->
-                                           <hr>
-                                           
+
+
                                             <div class="col-md-12">
                                                 <img src="{{ asset('frontend/images/payments.png') }}">
                                             </div> <!-- end col md 4 -->
 
 
-                                        </div><!-- End .accordion -->
+                                        </div> <!-- // end row  -->
 
-                                        <hr>
-                                        <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
-                                            <span class="btn-text">Place Order</span>
-                                            <span class="btn-hover-text">Proceed to Checkout</span>
-                                        </button>
-                                    </div><!-- End .summary -->
+
+
+                                    </div><!-- End .accordion -->
+
+                                    <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
+                                        <span class="btn-text">Place Order</span>
+                                        <span class="btn-hover-text">Proceed to Checkout</span>
+                                    </button>
+                                </div><!-- End .summary -->
                             </aside><!-- End .col-lg-3 -->
                         </div><!-- End .row -->
                     </form>

@@ -38,8 +38,9 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/demos/demo-4.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/plugins/nouislider/nouislider.css') }}">
 
-        <!-- Toastr Css-->
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+
+    <!-- Toastr Css-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
 </head>
 
 <body>
@@ -79,8 +80,8 @@
                         role="tab" aria-controls="mobile-menu-tab" aria-selected="true">Menu</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="mobile-cats-link" data-toggle="tab" href="#mobile-cats-tab" role="tab"
-                        aria-controls="mobile-cats-tab" aria-selected="false">Categories</a>
+                    <a class="nav-link" id="mobile-cats-link" data-toggle="tab" href="#mobile-cats-tab"
+                        role="tab" aria-controls="mobile-cats-tab" aria-selected="false">Categories</a>
                 </li>
             </ul>
 
@@ -778,7 +779,7 @@
                                 ${value.product.discount_price == null
                                 ? `${value.product.selling_price} TL`
                                 : `<del> ${value.product.selling_price} TL </del><br>
-                                                                                                                                                                                                                    ${value.product.discount_price} TL`
+                                                                                                                                                                                                                        ${value.product.discount_price} TL`
                                 }
                                 </td>
                             <td class="stock-col"><span class="in-stock">In stock</span></td>
@@ -892,13 +893,13 @@
                                                         
                                                     ${value.qty > 1
                                             ? ` <button type="submit" id="${value.rowId}" 
-                                                                                                                                                    onclick="cartDecrement(this.id)" 
-                                                                                                                                                    class="btn-remove"><i class="icon-minus"></i>
-                                                                                                                                                    </button>`
+                                                                                                                                                        onclick="cartDecrement(this.id)" 
+                                                                                                                                                        class="btn-remove"><i class="icon-minus"></i>
+                                                                                                                                                        </button>`
                                     : ` <button type="submit" id="${value.rowId}" 
-                                                                                                                                                    onclick="cartDecrement(this.id)" 
-                                                                                                                                                    class="btn-remove" disabled><i class="icon-minus"></i>
-                                                                                                                                                    </button>`
+                                                                                                                                                        onclick="cartDecrement(this.id)" 
+                                                                                                                                                        class="btn-remove" disabled><i class="icon-minus"></i>
+                                                                                                                                                        </button>`
                                     }
 
 

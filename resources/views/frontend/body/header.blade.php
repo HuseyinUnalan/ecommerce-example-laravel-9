@@ -35,6 +35,7 @@
                                 </div>
                             </li>
                             @auth
+                                <li><a href="{{ route('my.orders') }}">Siparişlerim</a></li>
                                 <li><a href="{{ route('user.logout') }}">Çıkış Yap</a></li>
                             @else
                                 <li><a href="{{ route('login') }}">Giriş Yap</a> / <a href="{{ route('register') }}">Kayıt
@@ -158,7 +159,8 @@
 
                         <div class="dropdown-cart-action">
                             <a href="{{ route('mycart') }}" class="btn btn-primary">View Cart</a>
-                            <a href="{{ route('checkout') }}" class="btn btn-outline-primary-2"><span>Checkout</span><i
+                            <a href="{{ route('checkout') }}"
+                                class="btn btn-outline-primary-2"><span>Checkout</span><i
                                     class="icon-long-arrow-right"></i></a>
                         </div><!-- End .dropdown-cart-total -->
                     </div><!-- End .dropdown-menu -->
