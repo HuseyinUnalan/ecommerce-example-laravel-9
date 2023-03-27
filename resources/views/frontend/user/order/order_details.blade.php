@@ -164,6 +164,14 @@
 
                         </tbody>
                     </table><!-- End .table table-wishlist -->
+                    @if ($order->status !== 'delivered')
+                    @else
+                        <div class="form-group col-md-12">
+                            <label for="label">Sipariş Geri İdade Sebebi</label>
+                            <textarea name="return_reason" id="" cols="30" rows="5" class="form-control"
+                                placeholder="Geri İdade Sebebi"></textarea>
+                        </div>
+                    @endif
 
 
                     <div class="wishlist-share">

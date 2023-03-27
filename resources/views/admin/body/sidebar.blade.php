@@ -70,7 +70,7 @@
                     </ul>
                 </li>
 
-                
+
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="ri-mail-send-line"></i>
@@ -81,7 +81,24 @@
                         <li><a href="{{ route('all.shipping') }}">Bölge Listesi</a></li>
                         <li><a href="{{ route('add.shipping.district') }}">Nakliye Yönlendirme Ekle</a></li>
                         <li><a href="{{ route('all.shipping.district') }}">Nakliye Yönlendirme Listesi</a></li>
-                    
+
+                    </ul>
+                </li>
+
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="ri-mail-send-line"></i>
+                        <span>Sipariş İşlemleri</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('pending.orders') }}">Bekleyen Siparişler</a></li>
+                        <li><a href="{{ route('confirmed.orders') }}">Onaylanmış Siparişler</a></li>
+                        <li><a href="{{ route('processing.orders') }}">İşlemdeki Siparişler</a></li>
+                        <li><a href="{{ route('picked.orders') }}">Seçilmiş Siparişler</a></li>
+                        <li><a href="{{ route('shipped.orders') }}">Kargodaki Siparişler</a></li>
+                        <li><a href="{{ route('delivered.orders') }}">Teslim Edilen Siparişler</a></li>
+                        <li><a href="{{ route('cancel.orders') }}">İptal Edilen Siparişler</a></li>
                     </ul>
                 </li>
 

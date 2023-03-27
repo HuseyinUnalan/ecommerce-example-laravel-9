@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\CargoController;
 use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ShippingController;
 use App\Http\Controllers\Admin\SliderController;
@@ -124,6 +125,28 @@ Route::get('products', [IndexController::class, 'AllProducts'])->name('products'
 Route::get('product/category/{id}/{slug}', [IndexController::class, 'ProductCategory'])->name('category.products');
 Route::get('product/details/{id}/{slug}', [IndexController::class, 'ProductDetails']);
 
+// --Admin Order All Routes--
+Route::get('/orders/pending/orders', [OrderController::class, 'PendingOrders'])->name('pending.orders');
+Route::get('/orders/pending/order/details/{order_id}', [OrderController::class, 'PendingOrderDetails'])->name('pending.order.details');
+
+Route::get('/orders/confirmed/orders', [OrderController::class, 'ConfirmedOrders'])->name('confirmed.orders');
+
+Route::get('/orders/processing/orders', [OrderController::class, 'ProcessingOrders'])->name('processing.orders');
+
+Route::get('/orders/picked/orders', [OrderController::class, 'PickedOrders'])->name('picked.orders');
+
+Route::get('/orders/shipped/orders', [OrderController::class, 'ShippedOrders'])->name('shipped.orders');
+
+Route::get('/orders/delivered/orders', [OrderController::class, 'DeliveredOrders'])->name('delivered.orders');
+
+Route::get('/orders/cancel/orders', [OrderController::class, 'CancelOrders'])->name('cancel.orders');
+
+
+
+
+
+
+
 // -- For Product Modal --
 Route::get('product/view/modal/{id}/', [IndexController::class, 'ProductViewAjax']);
 
@@ -150,19 +173,17 @@ Route::group(['middleware' => ['user', 'auth'], 'namespace' => 'User'], function
     Route::get('wishlist', [WishlistController::class, 'ViewWishlist'])->name('wishlist');
     Route::get('get-wishlist-product', [WishlistController::class, 'GetWishlistProduct']);
     Route::get('wishlist-remove/{id}', [WishlistController::class, 'RemoveWishlistProduct']);
-    
+
     //--Stripe--
     Route::post('/stripe/order', [StripeController::class, 'StripeOrder'])->name('stripe.order');
 
-     //--Cash--
-     Route::post('/cash/order', [CashController::class, 'CashOrder'])->name('cash.order');
+    //--Cash--
+    Route::post('/cash/order', [CashController::class, 'CashOrder'])->name('cash.order');
 
     //--My Orders--
     Route::get('my/orders', [AllUserController::class, 'MyOrders'])->name('my.orders');
     Route::get('order_details/{order_id}', [AllUserController::class, 'OrderDetails']);
     Route::get('invoice_download/{order_id}', [AllUserController::class, 'InvoiceDownload']);
-
-
 });
 
 // --My Cart Page--
@@ -183,6 +204,7 @@ Route::get('/checkout', [CartController::class, 'CheckoutCreate'])->name('checko
 Route::get('/district-get/ajax/{division_id}', [CheckoutController::class, 'DistrictGetAjax']);
 
 Route::post('/checkout/store', [CheckoutController::class, 'CheckoutStore'])->name('checkout.store');
+
 
 
 
