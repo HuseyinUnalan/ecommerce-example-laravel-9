@@ -194,6 +194,142 @@
                 })
             });
         });
+
+        $(function() {
+            $(document).on('click', '#confirm', function(e) {
+                e.preventDefault();
+                var link = $(this).attr("href");
+                Swal.fire({
+                    title: 'Siparişi Onaylamak İstediğine Emin misin?',
+                    text: "Bunu geri alamazsınız!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Evet, Siparişi Onayla!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = link
+                        Swal.fire(
+                            'Başarılı!',
+                            'Sipariş Onaylandı.',
+                            'success'
+                        )
+                    }
+                })
+            });
+        });
+
+        $(function() {
+            $(document).on('click', '#processing', function(e) {
+                e.preventDefault();
+                var link = $(this).attr("href");
+                Swal.fire({
+                    title: 'Siparişi İşleme Almak İstediğine Emin misin?',
+                    text: "Bunu geri alamazsınız!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Evet, İşleme Al!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = link
+                        Swal.fire(
+                            'Başarılı!',
+                            'Sipariş İşleme Alındı.',
+                            'success'
+                        )
+                    }
+                })
+            });
+        });
+
+        $(function() {
+            $(document).on('click', '#picked', function(e) {
+                e.preventDefault();
+                var link = $(this).attr("href");
+                Swal.fire({
+                    title: 'Hazırlanmış Siparişlere Almak İstediğineze Emin misin?',
+                    text: "Bunu geri alamazsınız!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Evet, Hazırlanmış Siparişlere Al!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = link
+                        Swal.fire(
+                            'Başarılı!',
+                            'Sipariş Hazırlanmış Siparişlere Alındı.',
+                            'success'
+                        )
+                    }
+                })
+            });
+        });
+
+
+        $(function() {
+            $(document).on('click', '#shipped', function(e) {
+                e.preventDefault();
+                var link = $(this).attr("href");
+
+
+                Swal.fire({
+                    title: 'Kargoya Verildi Olarak İşaretlemek İstediğinize Emin misiniz?',
+                    text: "Bunu geri alamazsınız!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Evet, Kargoya Verildi!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = link
+                        Swal.fire(
+                            'Başarılı!',
+                            'Sipariş Kargoya Verildi.',
+                            'success'
+                        )
+                    }
+                })
+
+
+            });
+
+        });
+
+
+        $(function() {
+            $(document).on('click', '#delivered', function(e) {
+                e.preventDefault();
+                var link = $(this).attr("href");
+
+
+                Swal.fire({
+                    title: 'Teslim Edildi Olarak İşaretlemek İstediğinize Emin misiniz?',
+                    text: "Bunu geri alamazsınız!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Evet, Teslim Edildi!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = link
+                        Swal.fire(
+                            'Başarılı!',
+                            'Sipariş Teslim Edildi!',
+                            'success'
+                        )
+                    }
+                })
+
+
+            });
+        });
     </script>
 
 

@@ -124,6 +124,38 @@
                                                         {{ $order->status }} </th>
                                                 </tr>
 
+                                                <tr>
+                                                    <th>
+
+                                                        @if ($order->status == 'Pending')
+                                                            <a href="{{ route('pending-confirm', $order->id) }}"
+                                                                class="btn btn-block btn-success" id="confirm">Sipariş
+                                                                Onayla</a>
+                                                        @elseif ($order->status == 'Confirmed')
+                                                            <a href="{{ route('confirm.processing', $order->id) }}"
+                                                                class="btn btn-block btn-success" id="processing">İşleme Al
+                                                            </a>
+                                                        @elseif ($order->status == 'Processing')
+                                                            <a href="{{ route('processing.picked', $order->id) }}"
+                                                                class="btn btn-block btn-success" id="picked">Hazırlanmış
+                                                                Siparişlere Al
+                                                            </a>
+                                                        @elseif($order->status == 'Picked')
+                                                            <a href="{{ route('picked.shipped', $order->id) }}"
+                                                                class="btn btn-block btn-success" id="shipped">Kargoya
+                                                                Verildi
+                                                            </a>
+                                                        @elseif($order->status == 'Shipped')
+                                                            <a href="{{ route('shipped.delivered', $order->id) }}"
+                                                                class="btn btn-block btn-success" id="delivered">Teslim
+                                                                Edildi
+                                                            </a>
+                                                        @endif
+
+                                                    </th>
+
+                                                </tr>
+
                                             </table>
                                         </div>
                                     </div>

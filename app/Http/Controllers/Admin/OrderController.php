@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use PDF;
 
 class OrderController extends Controller
 {
@@ -57,5 +58,87 @@ class OrderController extends Controller
     {
         $orders = Order::where('status', 'Cancel')->orderBy('id', 'DESC')->get();
         return view('admin.orders.cancel_orders', compact('orders'));
+    }
+
+    public function PendingToConfirm($order_id)
+    {
+        Order::findOrFail($order_id)->update([
+            'status' => 'Confirmed',
+        ]);
+
+        $notification = array(
+            'message' => 'Sipariş Onaylandı.',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('pending.orders')->with($notification);
+    }
+
+    public function ConfirmToProcessing($order_id)
+    {
+        Order::findOrFail($order_id)->update([
+            'status' => 'Processing',
+        ]);
+
+        $notification = array(
+            'message' => 'Sipariş İşleme Alındı.',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('confirmed.orders')->with($notification);
+    }
+
+    public function ProcessingToPicked($order_id)
+    {
+        Order::findOrFail($order_id)->update([
+            'status' => 'Picked',
+        ]);
+
+        $notification = array(
+            'message' => 'Sipariş Hazırlanmış Siparişlere Alındı.',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('processing.orders')->with($notification);
+    }
+
+    public function PickedToShipped($order_id)
+    {
+
+        Order::findOrFail($order_id)->update([
+            'status' => 'Shipped',
+        ]);
+
+        $notification = array(
+            'message' => 'Sipariş Kargoya Verildi.',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('picked.orders')->with($notification);
+    }
+
+
+    public function ShippedToDelivered($order_id)
+    {
+
+        Order::findOrFail($order_id)->update([
+            'status' => 'Delivered',
+        ]);
+
+        $notification = array(
+            'message' => 'Sipariş Teslim Edildi.',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('shipped.orders')->with($notification);
+    }
+
+    public function AdminInvoiceDownload($order_id)
+    {
+        $order = Order::with('division', 'district', 'user')->where('id', $order_id)->first();
+        $orderItem = OrderItem::with('product')->where('order_id', $order_id)->orderBy('id', 'DESC')->get();
+        // return view('frontend.user.order.order_invoice', compact('order', 'orderItem'));
+        $pdf = PDF::loadView('admin.orders.order_invoice', compact('order', 'orderItem'))->setPaper('a4')->setOptions([
+            'tempDir' => public_path(),
+            'chroot' => public_path(),
+        ]);
+        return $pdf->download('invoice.pdf');
     }
 }

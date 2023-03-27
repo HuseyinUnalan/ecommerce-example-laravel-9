@@ -78,25 +78,12 @@
                                                                 </button>
                                                             </a>
 
-                                                            <a href="{{ route('delete.coupon', $item->id) }}"
-                                                                id="delete">
-                                                                <button class="btn btn-danger btn-sm">
-                                                                    <i class="fa fa-trash"></i>
+                                                            <a href="{{ route('invoice.download', $item->id) }}"
+                                                                target="_blank">
+                                                                <button class="btn btn-info btn-sm">
+                                                                    <i class="fa fa-download"></i>
                                                                 </button>
                                                             </a>
-
-
-                                                            @if ($item->status == 1)
-                                                                <a href="{{ route('coupon.inactive', $item->id) }}"
-                                                                    class="btn btn-danger btn-sm"><i
-                                                                        class="fa fa-arrow-down"
-                                                                        title="Inactive Now"></i></a>
-                                                            @else
-                                                                <a href="{{ route('coupon.active', $item->id) }}"
-                                                                    class="btn btn-success btn-sm"><i class="fa fa-arrow-up"
-                                                                        title="Active Now"></i></a>
-                                                            @endif
-
                                                         </td>
 
                                                     </tr>

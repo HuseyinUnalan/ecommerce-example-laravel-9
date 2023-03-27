@@ -95,7 +95,7 @@
                         <li><a href="{{ route('pending.orders') }}">Bekleyen Siparişler</a></li>
                         <li><a href="{{ route('confirmed.orders') }}">Onaylanmış Siparişler</a></li>
                         <li><a href="{{ route('processing.orders') }}">İşlemdeki Siparişler</a></li>
-                        <li><a href="{{ route('picked.orders') }}">Seçilmiş Siparişler</a></li>
+                        <li><a href="{{ route('picked.orders') }}">Hazırlanmış Siparişler</a></li>
                         <li><a href="{{ route('shipped.orders') }}">Kargodaki Siparişler</a></li>
                         <li><a href="{{ route('delivered.orders') }}">Teslim Edilen Siparişler</a></li>
                         <li><a href="{{ route('cancel.orders') }}">İptal Edilen Siparişler</a></li>
