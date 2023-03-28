@@ -98,7 +98,7 @@
                         <li><a href="{{ route('picked.orders') }}">Hazırlanmış Siparişler</a></li>
                         <li><a href="{{ route('shipped.orders') }}">Kargodaki Siparişler</a></li>
                         <li><a href="{{ route('delivered.orders') }}">Teslim Edilen Siparişler</a></li>
-                        <li><a href="{{ route('cancel.orders') }}">İptal Edilen Siparişler</a></li>
+                        <li><a href="{{ route('admin.cancel.orders') }}">İptal Edilen Siparişler</a></li>
                     </ul>
                 </li>
 

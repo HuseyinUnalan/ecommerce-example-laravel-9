@@ -164,17 +164,32 @@
 
                         </tbody>
                     </table><!-- End .table table-wishlist -->
-                    @if ($order->status !== 'delivered')
+                    @if ($order->status !== 'Delivered')
                     @else
-                        <div class="form-group col-md-12">
-                            <label for="label">Sipariş Geri İdade Sebebi</label>
-                            <textarea name="return_reason" id="" cols="30" rows="5" class="form-control"
-                                placeholder="Geri İdade Sebebi"></textarea>
-                        </div>
+                        @php
+                            $order = App\Models\Order::where('id', $order->id)
+                                ->where('return_reason', '=', null)
+                                ->first();
+                        @endphp
+
+                        @if ($order)
+                            <form action="{{ route('return.order', $order->id) }}" method="POST" class="col-md-12">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="label">Sipariş Geri İdade Sebebi</label>
+                                    <textarea name="return_reason" id="" cols="30" rows="5" class="form-control"
+                                        placeholder="Geri İdade Sebebi"></textarea>
+                                </div>
+
+                                <button type="submit" class="btn btn-danger">Gönder</button>
+                            </form>
+                        @else
+                            <span class="text-danger">You Have send return request for this product</span>
+                        @endif
                     @endif
 
 
-                    <div class="wishlist-share">
+                    <div class="wishlist-share mt-5">
                         <div class="social-icons social-icons-sm mb-2">
                             <label class="social-label">Share on:</label>
                             <a href="#" class="social-icon" title="Facebook" target="_blank"><i

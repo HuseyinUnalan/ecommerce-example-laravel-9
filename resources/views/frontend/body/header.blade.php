@@ -36,6 +36,8 @@
                             </li>
                             @auth
                                 <li><a href="{{ route('my.orders') }}">Siparişlerim</a></li>
+                                <li><a href="{{ route('return.order.list') }}">İade Ettiklerim</a></li>
+                                <li><a href="{{ route('cancel.orders') }}">İptal Ettiklerim</a></li>
                                 <li><a href="{{ route('user.logout') }}">Çıkış Yap</a></li>
                             @else
                                 <li><a href="{{ route('login') }}">Giriş Yap</a> / <a href="{{ route('register') }}">Kayıt
