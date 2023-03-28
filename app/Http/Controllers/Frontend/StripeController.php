@@ -42,6 +42,42 @@ class StripeController extends Controller
         // dd($charge);
 
 
+        $aylar = array(
+            'January'    =>    'Ocak',
+            'February'    =>    'Şubat',
+            'March'        =>    'Mart',
+            'April'        =>    'Nisan',
+            'May'        =>    'Mayıs',
+            'June'        =>    'Haziran',
+            'July'        =>    'Temmuz',
+            'August'    =>    'Ağustos',
+            'September'    =>    'Eylül',
+            'October'    =>    'Ekim',
+            'November'    =>    'Kasım',
+            'December'    =>    'Aralık',
+            'Monday'    =>    'Pazartesi',
+            'Tuesday'    =>    'Salı',
+            'Wednesday'    =>    'Çarşamba',
+            'Thursday'    =>    'Perşembe',
+            'Friday'    =>    'Cuma',
+            'Saturday'    =>    'Cumartesi',
+            'Sunday'    =>    'Pazar',
+            'Jan' => 'Oca',
+            'Feb' => 'Şub',
+            'Mar' => 'Mar',
+            'Apr' => 'Nis',
+            'May' => 'May',
+            'Jun' => 'Haz',
+            'Jul' => 'Tem',
+            'Aug' => 'Ağu',
+            'Sep' => 'Eyl',
+            'Oct' => 'Eki',
+            'Nov' => 'Kas',
+            'Dec' => 'Ara'
+
+        );
+        
+
         $order_id = Order::insertGetId([
             'user_id' => Auth::id(),
             'division_id' => $request->division_id,
@@ -61,9 +97,9 @@ class StripeController extends Controller
             'order_number' => $charge->metadata->order_id,
 
             'invoice_no' => 'EOS' . mt_rand(10000000, 99999999),
-            'order_date' => Carbon::now()->format('d F Y'),
-            'order_month' => Carbon::now()->format('F'),
-            'order_year' => Carbon::now()->format('Y'),
+            'order_date' =>  strtr(Carbon::now()->format('d F Y'), $aylar),
+            'order_month' => strtr(Carbon::now()->format('F'), $aylar),
+            'order_year' =>  Carbon::now()->format('Y'),
             'status' => 'Pending',
             'created_at' => Carbon::now(),
 

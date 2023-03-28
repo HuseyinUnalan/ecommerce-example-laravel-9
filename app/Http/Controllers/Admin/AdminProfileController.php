@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -60,5 +61,52 @@ class AdminProfileController extends Controller
         } else {
             return redirect()->back();
         }
+    }
+
+    public function AllUsers()
+    {
+        $aylar = [
+            'January' => 'Ocak',
+            'February' => 'Şubat',
+            'March' => 'Mart',
+            'April' => 'Nisan',
+            'May' => 'Mayıs',
+            'June' => 'Haziran',
+            'July' => 'Temmuz',
+            'August' => 'Ağustos',
+            'September' => 'Eylül',
+            'October' => 'Ekim',
+            'November' => 'Kasım',
+            'December' => 'Aralık',
+            'Monday' => 'Pazartesi',
+            'Tuesday' => 'Salı',
+            'Wednesday' => 'Çarşamba',
+            'Thursday' => 'Perşembe',
+            'Friday' => 'Cuma',
+            'Saturday' => 'Cumartesi',
+            'Sunday' => 'Pazar',
+            'Jan' => 'Oca',
+            'Feb' => 'Şub',
+            'Mar' => 'Mar',
+            'Apr' => 'Nis',
+            'May' => 'May',
+            'Jun' => 'Haz',
+            'Jul' => 'Tem',
+            'Aug' => 'Ağu',
+            'Sep' => 'Eyl',
+            'Oct' => 'Eki',
+            'Nov' => 'Kas',
+            'Dec' => 'Ara',
+
+            'Mon' => 'Pzt',
+            'Tue' => 'Sal',
+            'Wed' => 'Çar',
+            'Thu' => 'Per',
+            'Fri' => 'Cuma',
+            'Sat' => 'Cmt',
+            'Sun' => 'Pzr',
+        ];
+        $users = User::latest()->get();
+        return view('admin.user.all_user', compact('users', 'aylar'));
     }
 }
