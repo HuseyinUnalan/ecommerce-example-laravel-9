@@ -6,7 +6,9 @@ use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\ReturnController;
 use App\Http\Controllers\Admin\ShippingController;
+use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Frontend\AllUserController;
@@ -172,6 +174,27 @@ Route::prefix('reports')->group(function () {
 Route::prefix('alluser')->group(function () {
     
     Route::get('/view', [AdminProfileController::class, 'AllUsers'])->name('all-users');
+
+});
+
+// Site Setting Route
+Route::prefix('setting')->group(function () {
+    
+    Route::get('/site', [SiteSettingController::class, 'SiteSetting'])->name('site.setting');
+    Route::post('/site/store', [SiteSettingController::class, 'SettingsStore'])->name('settings.store');
+
+    Route::get('/seo', [SiteSettingController::class, 'SEOSetting'])->name('seo.setting');
+    Route::post('/seo/store', [SiteSettingController::class, 'SEOStore'])->name('seo.store');
+
+});
+
+// Return Order Route
+Route::prefix('return')->group(function () {
+    
+    Route::get('/admin/request', [ReturnController::class, 'ReturnRequest'])->name('return.request');
+    Route::get('/admin/approve/{order_id}', [ReturnController::class, 'ReturnRequestApprove'])->name('return.approve');
+
+    Route::get('/admin/all/request', [ReturnController::class, 'ReturnAllRequest'])->name('all.request');
 
 });
 

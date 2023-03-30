@@ -1,3 +1,7 @@
+@php
+    $settings = App\Models\SiteSetting::find(1);
+    $seo = App\Models\Seo::find(1);
+@endphp
 <!DOCTYPE html>
 <html lang="tr">
 
@@ -6,18 +10,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Molla - Bootstrap eCommerce Template</title>
-    <meta name="keywords" content="HTML5 Template">
-    <meta name="description" content="Molla - Bootstrap eCommerce Template">
+    <title>{{ $settings->site_title }}</title>
+    <meta name="keywords" content="{{ $seo->meta_keyword }}">
+    <meta name="description" content="{{ $seo->meta_description }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="author" content="p-themes">
+    <meta name="author" content="Hüseyin Ünalan">
+    
+    {{-- Google Analytics --}}
+    <script>
+        {{ $seo->google_analytics }}
+    </script>
+    {{-- Google Analytics --}}
+
     <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('frontend/images/icons/apple-touch-icon.png') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('frontend/images/icons/favicon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('frontend/images/icons/favicon-16x16.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset($settings->favicon) }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset($settings->favicon) }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset($settings->favicon) }}">
     <link rel="manifest" href="{{ asset('frontend/images/icons/site.html') }}">
     <link rel="mask-icon" href="{{ asset('frontend/images/icons/safari-pinned-tab.svg') }}" color="#666666">
-    <link rel="shortcut icon" href="{{ asset('frontend/images/icons/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ asset($settings->favicon) }}">
     <meta name="apple-mobile-web-app-title" content="Molla">
     <meta name="application-name" content="Molla">
     <meta name="msapplication-TileColor" content="#cc9966">
@@ -779,7 +790,7 @@
                                 ${value.product.discount_price == null
                                 ? `${value.product.selling_price} TL`
                                 : `<del> ${value.product.selling_price} TL </del><br>
-                                                                                                                                                                                                                        ${value.product.discount_price} TL`
+                                                                                                                                                                                                                                            ${value.product.discount_price} TL`
                                 }
                                 </td>
                             <td class="stock-col"><span class="in-stock">In stock</span></td>
@@ -893,13 +904,13 @@
                                                         
                                                     ${value.qty > 1
                                             ? ` <button type="submit" id="${value.rowId}" 
-                                                                                                                                                        onclick="cartDecrement(this.id)" 
-                                                                                                                                                        class="btn-remove"><i class="icon-minus"></i>
-                                                                                                                                                        </button>`
+                                                                                                                                                                            onclick="cartDecrement(this.id)" 
+                                                                                                                                                                            class="btn-remove"><i class="icon-minus"></i>
+                                                                                                                                                                            </button>`
                                     : ` <button type="submit" id="${value.rowId}" 
-                                                                                                                                                        onclick="cartDecrement(this.id)" 
-                                                                                                                                                        class="btn-remove" disabled><i class="icon-minus"></i>
-                                                                                                                                                        </button>`
+                                                                                                                                                                            onclick="cartDecrement(this.id)" 
+                                                                                                                                                                            class="btn-remove" disabled><i class="icon-minus"></i>
+                                                                                                                                                                            </button>`
                                     }
 
 

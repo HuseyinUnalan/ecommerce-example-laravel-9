@@ -39,7 +39,47 @@
                                 <td class="stock-col">{{ $order->amount }} TL</td>
                                 <td class="stock-col">{{ $order->payment_method }}</td>
                                 <td class="stock-col"> {{ $order->invoice_no }}</td>
-                                <td class="stock-col"> {{ $order->status }}</td>
+
+
+                                <td class="stock-col">
+                                    @if ($order->status == 'Pending')
+                                        <span style="color: #800080; font-weight: 600;"> Onay
+                                            Bekliyor
+                                        </span>
+                                    @elseif($order->status == 'Confirmed')
+                                        <span style="color: #0000FF; font-weight: 600;"> Onaylandı
+                                        </span>
+                                    @elseif($order->status == 'Processing')
+                                        <span style="color: #FFA500; font-weight: 600;">
+                                            İşleme Alındı </span>
+                                    @elseif($order->status == 'Picked')
+                                        <span style="color: #808000; font-weight: 600;">
+                                            Hazırlanıyor
+                                        </span>
+                                    @elseif($order->status == 'Shipped')
+                                        <span style="color: #808080; font-weight: 600;"> Kargoya
+                                            Verildi
+                                        </span>
+                                    @elseif($order->status == 'Delivered')
+                                        <span style="color: #008000; font-weight: 600;"> Teslim
+                                            Edildi
+                                        </span>
+<br>
+                                        <span style="color: #FF0000; font-weight: 600;"> 
+                                            @if ($order->return_order == 1)
+                                                İade Talebi Gönderildi
+                                            @endif
+                                        </span>
+                                    @else
+                                        <span style="color: #FF0000; font-weight: 600;"> İptal Edildi
+                                        </span>
+                                    @endif
+                                </td>
+
+
+
+
+
 
                                 <td>
                                     <a href="{{ url('order_details/' . $order->id) }}">

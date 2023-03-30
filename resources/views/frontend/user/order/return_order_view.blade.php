@@ -26,6 +26,7 @@
                             <th>Ödeme</th>
                             <th>Fatura</th>
                             <th>Sipariş Durum</th>
+                            <th>İade Sebebi</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -39,7 +40,17 @@
                                 <td class="stock-col">{{ $order->amount }} TL</td>
                                 <td class="stock-col">{{ $order->payment_method }}</td>
                                 <td class="stock-col"> {{ $order->invoice_no }}</td>
-                                <td class="stock-col"> İade İstendi </td>
+                                <td class="stock-col">
+                                    @if ($order->return_order == 0)
+                                        İade Talebi Yok
+                                    @elseif ($order->return_order == 1)
+                                        İade Talebi Alındı Bekleniyor
+                                    @elseif ($order->return_order == 2)
+                                        Ürün İade Edildi
+                                    @endif
+                                </td>
+
+                                <td class="stock-col"> {{ $order->return_reason }}</td>
 
                                 <td>
                                     <a href="{{ url('order_details/' . $order->id) }}">

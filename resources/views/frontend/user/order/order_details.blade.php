@@ -178,13 +178,13 @@
                                 <div class="form-group">
                                     <label for="label">Sipariş Geri İdade Sebebi</label>
                                     <textarea name="return_reason" id="" cols="30" rows="5" class="form-control"
-                                        placeholder="Geri İdade Sebebi"></textarea>
+                                        placeholder="Geri İdade Sebebi (Max 255 Karakter)" maxlength="255"></textarea>
                                 </div>
 
                                 <button type="submit" class="btn btn-danger">Gönder</button>
                             </form>
                         @else
-                            <span class="text-danger">You Have send return request for this product</span>
+                            <span class="text-danger">Bu ürün için iade talebi gönderdiniz.</span>
                         @endif
                     @endif
 

@@ -53,6 +53,8 @@
     </div><!-- End .header-top -->
 
 
+   
+
     <div class="header-middle">
         <div class="container">
             <div class="header-left">
@@ -62,7 +64,7 @@
                 </button>
 
                 <a href="{{ route('/') }}" class="logo">
-                    <img src="{{ asset('frontend/images/demos/demo-4/logo.png') }}" alt="Molla Logo" width="105"
+                    <img src="{{ asset($settings->logo) }}" alt="Molla Logo" width="105"
                         height="25">
                 </a>
             </div><!-- End .header-left -->
