@@ -1,5 +1,53 @@
 @extends('admin.admin_master')
 @section('admin')
+    @php
+        
+        $aylar = [
+            'January' => 'Ocak',
+            'February' => 'Şubat',
+            'March' => 'Mart',
+            'April' => 'Nisan',
+            'May' => 'Mayıs',
+            'June' => 'Haziran',
+            'July' => 'Temmuz',
+            'August' => 'Ağustos',
+            'September' => 'Eylül',
+            'October' => 'Ekim',
+            'November' => 'Kasım',
+            'December' => 'Aralık',
+            'Monday' => 'Pazartesi',
+            'Tuesday' => 'Salı',
+            'Wednesday' => 'Çarşamba',
+            'Thursday' => 'Perşembe',
+            'Friday' => 'Cuma',
+            'Saturday' => 'Cumartesi',
+            'Sunday' => 'Pazar',
+            'Jan' => 'Oca',
+            'Feb' => 'Şub',
+            'Mar' => 'Mar',
+            'Apr' => 'Nis',
+            'May' => 'May',
+            'Jun' => 'Haz',
+            'Jul' => 'Tem',
+            'Aug' => 'Ağu',
+            'Sep' => 'Eyl',
+            'Oct' => 'Eki',
+            'Nov' => 'Kas',
+            'Dec' => 'Ara',
+        ];
+        
+        $date = date('d-m-y');
+        $today = App\Models\Order::where('order_date', strtr($date, $aylar))->sum('amount');
+        
+        $month = date('F');
+        $month = App\Models\Order::where('order_month', strtr($month, $aylar))->sum('amount');
+        
+        $year = date('Y');
+        $year = App\Models\Order::where('order_year', strtr($year, $aylar))->sum('amount');
+        
+        $pending = App\Models\Order::where('status', 'Pending')->get();
+    @endphp
+
     <div class="page-content">
         <div class="container-fluid">
 
@@ -47,8 +95,8 @@
                         <div class="card-body">
                             <div class="d-flex">
                                 <div class="flex-grow-1">
-                                    <p class="text-truncate font-size-14 mb-2">New Orders</p>
-                                    <h4 class="mb-2">938</h4>
+                                    <p class="text-truncate font-size-14 mb-2">Bugünlük Satış Geliri</p>
+                                    <h4 class="mb-2">{{ $today }} TL</h4>
                                     <p class="text-muted mb-0"><span class="text-danger fw-bold font-size-12 me-2"><i
                                                 class="ri-arrow-right-down-line me-1 align-middle"></i>1.09%</span>from
                                         previous period</p>
@@ -62,13 +110,56 @@
                         </div><!-- end cardbody -->
                     </div><!-- end card -->
                 </div><!-- end col -->
+
                 <div class="col-xl-3 col-md-6">
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex">
                                 <div class="flex-grow-1">
-                                    <p class="text-truncate font-size-14 mb-2">New Users</p>
-                                    <h4 class="mb-2">8246</h4>
+                                    <p class="text-truncate font-size-14 mb-2">Aylık Satış Geliri</p>
+                                    <h4 class="mb-2">{{ $month }} TL</h4>
+                                    <p class="text-muted mb-0"><span class="text-danger fw-bold font-size-12 me-2"><i
+                                                class="ri-arrow-right-down-line me-1 align-middle"></i>1.09%</span>from
+                                        previous period</p>
+                                </div>
+                                <div class="avatar-sm">
+                                    <span class="avatar-title bg-light text-success rounded-3">
+                                        <i class="mdi mdi-currency-usd font-size-24"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div><!-- end cardbody -->
+                    </div><!-- end card -->
+                </div><!-- end col -->
+
+                <div class="col-xl-3 col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex">
+                                <div class="flex-grow-1">
+                                    <p class="text-truncate font-size-14 mb-2">Yıllık Satış Geliri</p>
+                                    <h4 class="mb-2">{{ $year }} TL</h4>
+                                    <p class="text-muted mb-0"><span class="text-danger fw-bold font-size-12 me-2"><i
+                                                class="ri-arrow-right-down-line me-1 align-middle"></i>1.09%</span>from
+                                        previous period</p>
+                                </div>
+                                <div class="avatar-sm">
+                                    <span class="avatar-title bg-light text-success rounded-3">
+                                        <i class="mdi mdi-currency-usd font-size-24"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div><!-- end cardbody -->
+                    </div><!-- end card -->
+                </div><!-- end col -->
+
+                <div class="col-xl-3 col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex">
+                                <div class="flex-grow-1">
+                                    <p class="text-truncate font-size-14 mb-2">Onay Bekleyen Siparişler</p>
+                                    <h4 class="mb-2">{{ count($pending) }}</h4>
                                     <p class="text-muted mb-0"><span class="text-success fw-bold font-size-12 me-2"><i
                                                 class="ri-arrow-right-up-line me-1 align-middle"></i>16.2%</span>from
                                         previous period</p>
@@ -82,6 +173,8 @@
                         </div><!-- end cardbody -->
                     </div><!-- end card -->
                 </div><!-- end col -->
+
+
                 <div class="col-xl-3 col-md-6">
                     <div class="card">
                         <div class="card-body">

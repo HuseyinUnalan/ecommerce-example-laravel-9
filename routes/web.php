@@ -17,6 +17,7 @@ use App\Http\Controllers\Frontend\CartPageController;
 use App\Http\Controllers\Frontend\CashController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\IndexController;
+use App\Http\Controllers\Frontend\ReviewController;
 use App\Http\Controllers\Frontend\StripeController;
 use App\Http\Controllers\Frontend\WishlistController;
 use Illuminate\Support\Facades\Route;
@@ -158,46 +159,50 @@ Route::prefix('orders')->group(function () {
 
 // Reports All Route
 Route::prefix('reports')->group(function () {
-   
+
     Route::get('/view', [ReportController::class, 'ReportView'])->name('all-reports');
-    
+
     Route::post('/search/by/date', [ReportController::class, 'ReportByDate'])->name('search-by-date');
 
     Route::post('/search/by/month', [ReportController::class, 'ReportByMonth'])->name('search-by-month');
 
     Route::post('/search/by/year', [ReportController::class, 'ReportByYear'])->name('search-by-year');
-
-
 });
 
 // Users All Route
 Route::prefix('alluser')->group(function () {
-    
-    Route::get('/view', [AdminProfileController::class, 'AllUsers'])->name('all-users');
 
+    Route::get('/view', [AdminProfileController::class, 'AllUsers'])->name('all-users');
 });
 
 // Site Setting Route
 Route::prefix('setting')->group(function () {
-    
+
     Route::get('/site', [SiteSettingController::class, 'SiteSetting'])->name('site.setting');
     Route::post('/site/store', [SiteSettingController::class, 'SettingsStore'])->name('settings.store');
 
     Route::get('/seo', [SiteSettingController::class, 'SEOSetting'])->name('seo.setting');
     Route::post('/seo/store', [SiteSettingController::class, 'SEOStore'])->name('seo.store');
-
 });
 
 // Return Order Route
 Route::prefix('return')->group(function () {
-    
+
     Route::get('/admin/request', [ReturnController::class, 'ReturnRequest'])->name('return.request');
     Route::get('/admin/approve/{order_id}', [ReturnController::class, 'ReturnRequestApprove'])->name('return.approve');
 
     Route::get('/admin/all/request', [ReturnController::class, 'ReturnAllRequest'])->name('all.request');
-
 });
 
+// Review Route
+Route::prefix('review')->group(function () {
+
+    Route::get('/all', [ReviewController::class, 'AllReview'])->name('all.review');
+
+    Route::get('/review/approve{id}', [ReviewController::class, 'ReviewApprove'])->name('review.approve');
+
+    Route::get('/delete/{id}', [ReviewController::class, 'DeleteReview'])->name('delete.review');
+});
 
 
 
@@ -227,7 +232,11 @@ Route::get('/minicart/product-remove/{rowId}', [CartController::class, 'RemoveMi
 // --Add To Wish List--
 Route::post('/add-to-wishlist/{product_id}', [CartController::class, 'AddToWishlist']);
 
-//MY ORd
+
+// Frontend Product Review All Route 
+Route::post('/review/store', [ReviewController::class, 'ReviewStore'])->name('review.store');
+
+
 
 
 Route::group(['middleware' => ['user', 'auth'], 'namespace' => 'User'], function () {
