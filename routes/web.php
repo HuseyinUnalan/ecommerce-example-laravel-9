@@ -219,7 +219,6 @@ Route::prefix('adminuserrole')->group(function () {
     Route::post('/update', [AdminUserController::class, 'UpdateAdminRole'])->name('admin.user.update');
 
     Route::get('/delete/{id}', [AdminUserController::class, 'DeleteAdminRole'])->name('delete.admin.user');
-
 });
 
 
@@ -250,8 +249,10 @@ Route::get('/minicart/product-remove/{rowId}', [CartController::class, 'RemoveMi
 Route::post('/add-to-wishlist/{product_id}', [CartController::class, 'AddToWishlist']);
 
 
-// Frontend Product Review All Route 
+// Frontend Product Review All Route  
 Route::post('/review/store', [ReviewController::class, 'ReviewStore'])->name('review.store');
+
+
 
 
 
@@ -279,6 +280,9 @@ Route::group(['middleware' => ['user', 'auth'], 'namespace' => 'User'], function
     Route::get('return/order/list', [AllUserController::class, 'ReturnOrderList'])->name('return.order.list');
 
     Route::get('cancel/orders', [AllUserController::class, 'CancelOrders'])->name('cancel.orders');
+
+    //--Order Tracking--
+    Route::post('/order/tracking', [AllUserController::class, 'OrderTracking'])->name('order.tracking');
 });
 
 // --My Cart Page--

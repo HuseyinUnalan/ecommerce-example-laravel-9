@@ -38,6 +38,8 @@
                                 <li><a href="{{ route('my.orders') }}">Siparişlerim</a></li>
                                 <li><a href="{{ route('return.order.list') }}">İade Ettiklerim</a></li>
                                 <li><a href="{{ route('cancel.orders') }}">İptal Ettiklerim</a></li>
+                                <li><a href="" type="button" data-toggle="modal" data-target="#ordertraking">Sipariş
+                                        Takip </a></li>
                                 <li><a href="{{ route('user.logout') }}">Çıkış Yap</a></li>
                             @else
                                 <li><a href="{{ route('login') }}">Giriş Yap</a> / <a href="{{ route('register') }}">Kayıt
@@ -53,7 +55,7 @@
     </div><!-- End .header-top -->
 
 
-   
+
 
     <div class="header-middle">
         <div class="container">
@@ -64,8 +66,7 @@
                 </button>
 
                 <a href="{{ route('/') }}" class="logo">
-                    <img src="{{ asset($settings->logo) }}" alt="Molla Logo" width="105"
-                        height="25">
+                    <img src="{{ asset($settings->logo) }}" alt="Molla Logo" width="105" height="25">
                 </a>
             </div><!-- End .header-left -->
 
@@ -678,3 +679,29 @@
         </div><!-- End .container -->
     </div><!-- End .header-bottom -->
 </header>
+
+<!-- Sipariş Takip Modal -->
+<div class="modal fade" id="ordertraking" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Sipariş Takip</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body m-5">
+                <form action="{{ route('order.tracking') }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <label for="">Fatura Kodu</label>
+                        <input type="text" name="code" required class="form-control"
+                            placeholder="Sipariş Fatura Numarası" id="">
+                    </div>
+                    <button type="submit" class="btn btn-danger">Siparişi Takip Et</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
