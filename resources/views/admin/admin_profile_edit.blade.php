@@ -1,6 +1,8 @@
 @extends('admin.admin_master')
 @section('admin')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
+    
     <div class="page-content">
         <div class="container-fluid">
 
@@ -14,6 +16,8 @@
 
                             <form action="{{ route('admin.store.profile') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
+
+
 
                                 <div class="row mb-3">
                                     <label for="example-text-input" class="col-sm-2 col-form-label"></label>

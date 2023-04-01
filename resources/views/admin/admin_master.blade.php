@@ -1,5 +1,10 @@
 @php
-    $adminData = DB::table('admins')->first();
+    // $adminData = DB::table('admins')->first();
+    $id = auth()
+        ->guard('admin')
+        ->id();
+    $adminData = App\Models\Admin::find($id);
+    // auth()->guard('admin')->id()
 @endphp
 <!doctype html>
 <html lang="tr">
