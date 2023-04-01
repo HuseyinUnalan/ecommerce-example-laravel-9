@@ -61,4 +61,14 @@ class IndexController extends Controller
         Auth::logout();
         return redirect()->route('login');
     }
+
+    // Product Search
+    public function ProductSearch(Request $request)
+    {
+        $item = $request->search;
+        // echo $item;
+        $products = Product::where('product_name', 'LIKE', "%$item%")->get();
+        $productcategories = ProductCategory::where('status', 1)->orderBy('desk', 'ASC')->get();
+        return view('frontend.product.search_product', compact('products', 'productcategories'));
+    }
 }
