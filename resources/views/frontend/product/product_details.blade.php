@@ -128,12 +128,48 @@
 
 
 
+                                @php
+                                    
+                                    $reviews = App\Models\Review::where('product_id', $products->id)
+                                        // ->where('status', 1)
+                                        ->latest()
+                                        ->limit(5)
+                                        ->get();
+                                    
+                                    $avarage = App\Models\Review::where('product_id', $products->id)
+                                        // ->where('status', 1)
+                                        ->avg('rating');
+                                @endphp
 
                                 <div class="ratings-container">
-                                    <div class="ratings">
-                                        <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
-                                    </div><!-- End .ratings -->
-                                    <a class="ratings-text" href="#product-review-link" id="review-link">( 2 Reviews )</a>
+
+                                    @if ($avarage == 0)
+                                        Henüz Değerlendirme Yok
+                                    @elseif($avarage == 1 || $avarage < 2)
+                                        <div class="ratings">
+                                            <div class="ratings-val" style="width: 20%;"></div><!-- End .ratings-val -->
+                                        </div><!-- End .ratings -->
+                                    @elseif($avarage == 2 || $avarage < 3)
+                                        <div class="ratings">
+                                            <div class="ratings-val" style="width: 40%;"></div><!-- End .ratings-val -->
+                                        </div><!-- End .ratings -->
+                                    @elseif($avarage == 3 || $avarage < 4)
+                                        <div class="ratings">
+                                            <div class="ratings-val" style="width: 60%;"></div><!-- End .ratings-val -->
+                                        </div><!-- End .ratings -->
+                                    @elseif($avarage == 4 || $avarage < 5)
+                                        <div class="ratings">
+                                            <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
+                                        </div><!-- End .ratings -->
+                                    @elseif($avarage == 5 || $avarage < 5)
+                                        <div class="ratings">
+                                            <div class="ratings-val" style="width: 100%;"></div><!-- End .ratings-val -->
+                                        </div><!-- End .ratings -->
+                                    @endif
+
+
+                                    <a class="ratings-text" href="#product-review-link" id="review-link">(
+                                        {{ count($reviews) }} Yorum )</a>
                                 </div><!-- End .rating-container -->
 
                                 @php
@@ -261,6 +297,12 @@
                                 <h3>Reviews ({{ count($reviews) }})</h3>
 
 
+                                <style>
+                                    .checked {
+                                        color: orange;
+                                    }
+                                </style>
+
 
 
                                 @foreach ($reviews as $review)
@@ -269,10 +311,35 @@
                                             <div class="col-auto">
                                                 <h4><a href="#">{{ $review->user->name }}</a></h4>
                                                 <div class="ratings-container">
-                                                    <div class="ratings">
-                                                        <div class="ratings-val" style="width: 80%;"></div>
-                                                        <!-- End .ratings-val -->
-                                                    </div><!-- End .ratings -->
+                                                    @if ($review->rating == null)
+                                                        Değerlendirme Yok
+                                                    @elseif($review->rating == 1)
+                                                        <div class="ratings">
+                                                            <div class="ratings-val" style="width: 20%;"></div>
+                                                            <!-- End .ratings-val -->
+                                                        </div><!-- End .ratings -->
+                                                    @elseif($review->rating == 2)
+                                                        <div class="ratings">
+                                                            <div class="ratings-val" style="width: 40%;"></div>
+                                                            <!-- End .ratings-val -->
+                                                        </div><!-- End .ratings -->
+                                                    @elseif($review->rating == 3)
+                                                        <div class="ratings">
+                                                            <div class="ratings-val" style="width: 60%;"></div>
+                                                            <!-- End .ratings-val -->
+                                                        </div><!-- End .ratings -->
+                                                    @elseif($review->rating == 4)
+                                                        <div class="ratings">
+                                                            <div class="ratings-val" style="width: 80%;"></div>
+                                                            <!-- End .ratings-val -->
+                                                        </div><!-- End .ratings -->
+                                                    @elseif($review->rating == 5)
+                                                        <div class="ratings">
+                                                            <div class="ratings-val" style="width: 100%;"></div>
+                                                            <!-- End .ratings-val -->
+                                                        </div><!-- End .ratings -->
+                                                    @endif
+
                                                 </div><!-- End .rating-container -->
                                                 <span
                                                     class="review-date">{{ Carbon\Carbon::parse($review->created_at)->diffForHumans() }}</span>
@@ -284,10 +351,10 @@
                                                     <p>{{ $review->comment }}</p>
                                                 </div><!-- End .review-content -->
 
-                                                <div class="review-action">
+                                                {{-- <div class="review-action">
                                                     <a href="#"><i class="icon-thumbs-up"></i>Helpful (2)</a>
                                                     <a href="#"><i class="icon-thumbs-down"></i>Unhelpful (0)</a>
-                                                </div><!-- End .review-action -->
+                                                </div><!-- End .review-action --> --}}
                                             </div><!-- End .col-auto -->
                                         </div><!-- End .row -->
                                     </div><!-- End .review -->
@@ -311,6 +378,35 @@
                                             @csrf
 
                                             <input type="hidden" name="product_id" value="{{ $products->id }}">
+
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="cell-label">&nbsp;</th>
+                                                        <th>1 star</th>
+                                                        <th>2 stars</th>
+                                                        <th>3 stars</th>
+                                                        <th>4 stars</th>
+                                                        <th>5 stars</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="cell-label">Değerlendir</td>
+                                                        <td><input type="radio" name="quality" class="radio"
+                                                                value="1"></td>
+                                                        <td><input type="radio" name="quality" class="radio"
+                                                                value="2"></td>
+                                                        <td><input type="radio" name="quality" class="radio"
+                                                                value="3"></td>
+                                                        <td><input type="radio" name="quality" class="radio"
+                                                                value="4"></td>
+                                                        <td><input type="radio" name="quality" class="radio"
+                                                                value="5"></td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
 
                                             <div class="row">
 
@@ -622,6 +718,4 @@
 
         window.addEventListener('resize', slideImage);
     </script>
-
-
 @endsection
