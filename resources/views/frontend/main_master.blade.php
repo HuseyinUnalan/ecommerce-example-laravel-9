@@ -15,7 +15,7 @@
     <meta name="description" content="{{ $seo->meta_description }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="author" content="Hüseyin Ünalan">
-    
+
     {{-- Google Analytics --}}
     <script>
         {{ $seo->google_analytics }}
@@ -78,12 +78,15 @@
         <div class="mobile-menu-wrapper">
             <span class="mobile-menu-close"><i class="icon-close"></i></span>
 
-            <form action="#" method="get" class="mobile-search">
-                <label for="mobile-search" class="sr-only">Search</label>
-                <input type="search" class="form-control" name="mobile-search" id="mobile-search"
-                    placeholder="Search in..." required>
+            <form action="{{ route('product.search') }}" method="POST" class="mobile-search">
+                @csrf
+                <label for="mobile-search" class="sr-only">Ürün Ara</label>
+                <input type="search" class="form-control" onfocus="search_result_show()" onblur="search_result_hide()"
+                    name="search" id="search" placeholder="Ürün Ara..." required>
                 <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
             </form>
+
+           
 
             <ul class="nav nav-pills-mobile nav-border-anim" role="tablist">
                 <li class="nav-item">
@@ -790,7 +793,7 @@
                                 ${value.product.discount_price == null
                                 ? `${value.product.selling_price} TL`
                                 : `<del> ${value.product.selling_price} TL </del><br>
-                                                                                                                                                                                                                                            ${value.product.discount_price} TL`
+                                                                                                                                                                                                                                                ${value.product.discount_price} TL`
                                 }
                                 </td>
                             <td class="stock-col"><span class="in-stock">In stock</span></td>
@@ -904,13 +907,13 @@
                                                         
                                                     ${value.qty > 1
                                             ? ` <button type="submit" id="${value.rowId}" 
-                                                                                                                                                                            onclick="cartDecrement(this.id)" 
-                                                                                                                                                                            class="btn-remove"><i class="icon-minus"></i>
-                                                                                                                                                                            </button>`
+                                                                                                                                                                                onclick="cartDecrement(this.id)" 
+                                                                                                                                                                                class="btn-remove"><i class="icon-minus"></i>
+                                                                                                                                                                                </button>`
                                     : ` <button type="submit" id="${value.rowId}" 
-                                                                                                                                                                            onclick="cartDecrement(this.id)" 
-                                                                                                                                                                            class="btn-remove" disabled><i class="icon-minus"></i>
-                                                                                                                                                                            </button>`
+                                                                                                                                                                                onclick="cartDecrement(this.id)" 
+                                                                                                                                                                                class="btn-remove" disabled><i class="icon-minus"></i>
+                                                                                                                                                                                </button>`
                                     }
 
 

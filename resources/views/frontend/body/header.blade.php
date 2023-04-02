@@ -78,9 +78,11 @@
                         <div class="header-search-wrapper search-wrapper-wide">
                             <label for="q" class="sr-only">Search</label>
                             <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
-                            <input type="search" class="form-control" name="search" id="q"
-                                placeholder="Ürün Ara ..." required>
+                            <input type="text" onfocus="search_result_show()" onblur="search_result_hide()"
+                                class="form-control" name="search" id="search" placeholder="Ürün Ara ..." required>
                         </div><!-- End .header-search-wrapper -->
+                        <div id="searchProducts"></div>
+
                     </form>
                 </div><!-- End .header-search -->
             </div>
@@ -680,6 +682,30 @@
         </div><!-- End .container -->
     </div><!-- End .header-bottom -->
 </header>
+
+<style>
+    #searchProducts {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #ffffff;
+        z-index: 999;
+        border-radius: 8px;
+        margin-top: 5px;
+    }
+</style>
+
+{{-- <script>
+    function search_result_show() {
+        $("#searchProducts").slideUp();
+    }
+
+    function search_result_hide() {
+        $("#searchProducts").slideDown();
+    }
+</script> --}}
+
 
 <!-- Sipariş Takip Modal -->
 <div class="modal fade" id="ordertraking" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

@@ -262,9 +262,10 @@ Route::post('/add-to-wishlist/{product_id}', [CartController::class, 'AddToWishl
 Route::post('/review/store', [ReviewController::class, 'ReviewStore'])->name('review.store');
 
 // Frontend Product Search All Route  
-
 Route::post('/search', [IndexController::class, 'ProductSearch'])->name('product.search');
 
+// Frontend Product Advance Search All Route
+Route::post('/search-product', [IndexController::class, 'ProductAdvanceSearch']);
 
 
 
