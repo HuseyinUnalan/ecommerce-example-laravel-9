@@ -62,8 +62,8 @@
             <div class="container d-flex align-items-center">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Anasayfa</a></li>
-                    <li class="breadcrumb-item"><a href="#">Products</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Default</li>
+                    <li class="breadcrumb-item"><a href="{{ route('products') }}">Ürünler</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ $products->product_name }}</li>
                 </ol>
 
                 <nav class="product-pager ml-auto" aria-label="Product">

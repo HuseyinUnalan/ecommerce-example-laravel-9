@@ -272,8 +272,8 @@
                                     </div><!-- End .product-action -->
 
                                     <div class="product-action">
-                                        <a href="#" class="btn-product btn-cart" title="Add to cart"><span>add to
-                                                cart</span></a>
+                                        <a href="{{ url('product/details/' . $product->id . '/' . $product->product_slug) }}"
+                                            class="btn-product btn-cart" title="Ürün Detay"><span>Ürün Detay</span></a>
                                         <a data-toggle="modal" data-target="#exampleModal" id="{{ $product->id }}"
                                             onclick="productView(this.id)" class="btn-product" title="Quick view"><i
                                                 class="fa fa-eye"></i></a>
@@ -309,12 +309,20 @@
 
                                         </div><!-- End .product-price -->
                                     @endif
+
+                                    @php
+                                        $reviews = App\Models\Review::where('product_id', $product->id)
+                                            // ->where('status', 1)
+                                            // ->latest()
+                                            ->get();
+                                    @endphp
+
                                     <div class="ratings-container">
                                         <div class="ratings">
                                             <div class="ratings-val" style="width: 100%;"></div>
                                             <!-- End .ratings-val -->
                                         </div><!-- End .ratings -->
-                                        <span class="ratings-text">( 4 Reviews )</span>
+                                        <span class="ratings-text">({{ count($reviews) }} Yorum)</span>
                                     </div><!-- End .rating-container -->
                                 </div><!-- End .product-body -->
                             </div><!-- End .product -->
@@ -401,8 +409,9 @@
                                         </div><!-- End .product-action -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="Add to cart"><span>add
-                                                    to cart</span></a>
+                                            <a href="{{ url('product/details/' . $product->id . '/' . $product->product_slug) }}"
+                                                class="btn-product btn-cart" title="Ürün Detay"><span>Ürün
+                                                    Detay</span></a>
                                             <a data-toggle="modal" data-target="#exampleModal" id="{{ $product->id }}"
                                                 onclick="productView(this.id)" class="btn-product" title="Quick view"><i
                                                     class="fa fa-eye"></i></a>
@@ -430,12 +439,20 @@
 
                                             </div><!-- End .product-price -->
                                         @endif
+
+
+                                        @php
+                                            $reviews = App\Models\Review::where('product_id', $product->id)
+                                                // ->where('status', 1)
+                                                // ->latest()
+                                                ->get();
+                                        @endphp
                                         <div class="ratings-container">
                                             <div class="ratings">
                                                 <div class="ratings-val" style="width: 100%;"></div>
                                                 <!-- End .ratings-val -->
                                             </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 4 Reviews )</span>
+                                            <span class="ratings-text">({{ count($reviews) }} Yorum)</span>
                                         </div><!-- End .rating-container -->
                                     </div><!-- End .product-body -->
                                 </div><!-- End .product -->
@@ -677,10 +694,9 @@
                                                 </div><!-- End .product-action -->
 
                                                 <div class="product-action">
-                                                    <a href="#" class="btn-product btn-cart"
-                                                        title="Add to cart"><span>add to cart</span></a>
-
-                                                        
+                                                    <a href="{{ url('product/details/' . $trendproduct->id . '/' . $trendproduct->product_slug) }}"
+                                                        class="btn-product btn-cart" title="Ürün Detay"><span>Ürün
+                                                            Detay</span></a>
                                                     <a data-toggle="modal" data-target="#exampleModal"
                                                         id="{{ $trendproduct->id }}" onclick="productView(this.id)"
                                                         class="btn-product" title="Quick view"><i
@@ -712,13 +728,19 @@
                                                     </div><!-- End .product-price -->
                                                 @endif
 
+                                                @php
+                                                    $reviews = App\Models\Review::where('product_id', $trendproduct->id)
+                                                        // ->where('status', 1)
+                                                        // ->latest()
+                                                        ->get();
+                                                @endphp
 
                                                 <div class="ratings-container">
                                                     <div class="ratings">
                                                         <div class="ratings-val" style="width: 80%;"></div>
                                                         <!-- End .ratings-val -->
                                                     </div><!-- End .ratings -->
-                                                    <span class="ratings-text">( 4 Reviews )</span>
+                                                    <span class="ratings-text">({{ count($reviews) }} Yorum)</span>
                                                 </div><!-- End .rating-container -->
 
 
@@ -789,8 +811,8 @@
                                     </div><!-- End .product-action -->
 
                                     <div class="product-action">
-                                        <a href="#" class="btn-product btn-cart" title="Add to cart"><span>add to
-                                                cart</span></a>
+                                        <a href="{{ url('product/details/' . $adviceproduct->id . '/' . $adviceproduct->product_slug) }}"
+                                            class="btn-product btn-cart" title="Ürün Detay"><span></span></a>
                                         <a data-toggle="modal" data-target="#exampleModal" id="{{ $adviceproduct->id }}"
                                             onclick="productView(this.id)" class="btn-product" title="Quick view"><i
                                                 class="fa fa-eye"></i></a>
@@ -818,12 +840,20 @@
 
                                         </div><!-- End .product-price -->
                                     @endif
+
+                                    @php
+                                        $reviews = App\Models\Review::where('product_id', $adviceproduct->id)
+                                            // ->where('status', 1)
+                                            // ->latest()
+                                            ->get();
+                                    @endphp
+
                                     <div class="ratings-container">
                                         <div class="ratings">
                                             <div class="ratings-val" style="width: 60%;"></div>
                                             <!-- End .ratings-val -->
                                         </div><!-- End .ratings -->
-                                        <span class="ratings-text">( 2 Reviews )</span>
+                                        <span class="ratings-text">({{ count($reviews) }} Yorum)</span>
                                     </div><!-- End .rating-container -->
                                 </div><!-- End .product-body -->
                             </div><!-- End .product -->
