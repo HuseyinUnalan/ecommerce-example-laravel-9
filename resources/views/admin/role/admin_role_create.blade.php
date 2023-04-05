@@ -28,7 +28,7 @@
                                 <div class="row mb-3">
                                     <label for="example-text-input" class="col-sm-2 col-form-label">Profil Resmi</label>
                                     <div class="col-sm-10">
-                                        <input id="image" name="profile_photo_path" class="form-control" type="file" required
+                                        <input id="image" name="profile_photo_path" class="form-control" type="file"
                                             id="example-text-input">
                                     </div>
                                 </div>

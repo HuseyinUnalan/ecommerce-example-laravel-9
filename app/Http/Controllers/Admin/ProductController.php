@@ -30,7 +30,7 @@ class ProductController extends Controller
         $image = $request->file('product_thambnail_photo');
         $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
 
-        Image::make($image)->resize(218, 218)->save('upload/products/' . $name_gen);
+        Image::make($image)->resize(600, 600)->save('upload/products/' . $name_gen);
         $save_url = 'upload/products/' . $name_gen;
 
         Product::insert([
@@ -79,7 +79,7 @@ class ProductController extends Controller
             $image = $request->file('product_thambnail_photo');
             $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
 
-            Image::make($image)->resize(870, 450)->save('upload/products/' . $name_gen);
+            Image::make($image)->resize(600, 600)->save('upload/products/' . $name_gen);
             $save_url = 'upload/products/' . $name_gen;
 
             Product::findOrFail($product_id)->update([
@@ -150,24 +150,24 @@ class ProductController extends Controller
         return redirect()->back()->with($notification);
     }
 
-    // public function ProductDelete($id)
-    // {
-    //     $product = Product::findOrFail($id);
-    //     unlink($product->product_thambnail);
-    //     Product::findOrFail($id)->delete();
+    public function DeleteProduct($id)
+    {
+        $product = Product::findOrFail($id);
+        unlink($product->product_thambnail_photo);
+        Product::findOrFail($id)->delete();
 
-    //     $images = MultiImg::where('product_id', $id)->get();
-    //     foreach ($images as $img) {
-    //         unlink($img->photo_name);
-    //         MultiImg::where('product_id', $id)->delete();
-    //     }
+        $images = ProductImages::where('product_id', $id)->get();
+        foreach ($images as $img) {
+            unlink($img->photo);
+            ProductImages::where('product_id', $id)->delete();
+        }
 
-    //     $notification = array(
-    //         'message' => 'Product Delected Succesfully',
-    //         'alert-type' => 'success'
-    //     );
-    //     return redirect()->back()->with($notification);
-    // }
+        $notification = array(
+            'message' => 'Product Delected Succesfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
 
     // ------------------------ For Product Multi Images ------------------------ \\
 
@@ -182,7 +182,7 @@ class ProductController extends Controller
         $image = $request->file('file');
         $imageName = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
 
-        Image::make($image)->resize(766, 444)->save('upload/products/multi_images/' . $imageName);
+        Image::make($image)->resize(600, 600)->save('upload/products/multi_images/' . $imageName);
         $save_url = 'upload/products/multi_images/' . $imageName;
 
         ProductImages::insert([

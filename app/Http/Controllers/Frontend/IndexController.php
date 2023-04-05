@@ -7,9 +7,11 @@ use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductImages;
 use App\Models\Slider;
+use App\Models\User;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class IndexController extends Controller
 {
@@ -26,7 +28,7 @@ class IndexController extends Controller
 
     public function AllProducts()
     {
-        $products = Product::where('status', 1)->orderBy('desk', 'ASC')->Paginate(8);
+        $products = Product::where('status', 1)->orderBy('desk', 'ASC')->Paginate(6);
         $productcategories = ProductCategory::where('status', 1)->orderBy('desk', 'ASC')->get();
         return view('frontend.product.all_products', compact('products', 'productcategories'));
     }
@@ -86,4 +88,71 @@ class IndexController extends Controller
             ->get();
         return view('frontend.product.advance_search_product', compact('products'));
     }
+
+
+
+
+    public function UserProfile()
+    {
+        $id = Auth::user()->id;
+        $user = User::find($id);
+        return view('frontend.profile.user_profile', compact('user'));
+    }
+
+
+
+    public function UserProfileStore(Request $request)
+    {
+        $data = User::find(Auth::user()->id);
+        $data->name = $request->name;
+        $data->email = $request->email;
+        // $data->phone = $request->phone;
+
+
+        if ($request->file('profile_photo_path')) {
+            $file = $request->file('profile_photo_path');
+            @unlink(public_path('upload/user_images/' . $data->profile_photo_path));
+            $filename = date('YmdHi') . $file->getClientOriginalName();
+            $file->move(public_path('upload/user_images'), $filename);
+            $data['profile_photo_path'] = $filename;
+        }
+        $data->save();
+
+        $notification = array(
+            'message' => 'Profil Başarı İle Güncellendi.',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+    } // end method 
+
+
+    public function UserChangePassword()
+    {
+        $id = Auth::user()->id;
+        $user = User::find($id);
+        return view('frontend.profile.change_password', compact('user'));
+    }
+
+
+    public function UserPasswordUpdate(Request $request)
+    {
+
+        $validateData = $request->validate([
+            'oldpassword' => 'required',
+            'password' => 'required|confirmed',
+        ]);
+
+        $hashedPassword = Auth::user()->password;
+        if (Hash::check($request->oldpassword, $hashedPassword)) {
+            $user = User::find(Auth::id());
+            $user->password = Hash::make($request->password);
+            $user->save();
+            Auth::logout();
+            return redirect()->route('user.logout');
+        } else {
+            return redirect()->back();
+        }
+    } // end method
+
 }

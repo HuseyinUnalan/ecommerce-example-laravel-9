@@ -86,7 +86,7 @@
         </div><!-- End .intro-slider-container -->
 
         <div class="container">
-            <h2 class="title text-center mb-4">Explore Popular Categories</h2><!-- End .title text-center -->
+            <h2 class="title text-center mb-4">Popüler Kategorileri Keşfedin</h2><!-- End .title text-center -->
 
 
             <div class="cat-blocks-container">
@@ -174,7 +174,7 @@
         <div class="container new-arrivals">
             <div class="heading heading-flex mb-3">
                 <div class="heading-left">
-                    <h2 class="title">New Arrivals</h2><!-- End .title -->
+                    <h2 class="title">Yeni Gelenler</h2><!-- End .title -->
                 </div><!-- End .heading-left -->
 
                 <div class="heading-right">
@@ -182,7 +182,7 @@
 
                         <li class="nav-item">
                             <a class="nav-link active" id="new-all-link" data-toggle="tab" href="#new-all-tab"
-                                role="tab" aria-controls="new-all-tab" aria-selected="true">All</a>
+                                role="tab" aria-controls="new-all-tab" aria-selected="true">Hepsi</a>
                         </li>
 
                         @foreach ($productcategories as $productcategorie)
@@ -267,8 +267,8 @@
                                     </a>
 
                                     <div class="product-action-vertical">
-                                        <a href="#" class="btn-product-icon btn-wishlist"
-                                            title="Add to wishlist"></a>
+                                        <button type="button" id="{{ $product->id }}" onclick="addToWishList(this.id)"
+                                            class="btn-product-icon btn-wishlist" title="Add to wishlist"></button>
                                     </div><!-- End .product-action -->
 
                                     <div class="product-action">
@@ -315,13 +315,40 @@
                                             // ->where('status', 1)
                                             // ->latest()
                                             ->get();
+                                        $avarage = App\Models\Review::where('product_id', $product->id)
+                                            // ->where('status', 1)
+                                            ->avg('rating');
                                     @endphp
 
                                     <div class="ratings-container">
-                                        <div class="ratings">
-                                            <div class="ratings-val" style="width: 100%;"></div>
-                                            <!-- End .ratings-val -->
-                                        </div><!-- End .ratings -->
+                                        @if ($avarage == 0)
+                                            -
+                                        @elseif($avarage == 1 || $avarage < 2)
+                                            <div class="ratings">
+                                                <div class="ratings-val" style="width: 20%;"></div>
+                                                <!-- End .ratings-val -->
+                                            </div><!-- End .ratings -->
+                                        @elseif($avarage == 2 || $avarage < 3)
+                                            <div class="ratings">
+                                                <div class="ratings-val" style="width: 40%;"></div>
+                                                <!-- End .ratings-val -->
+                                            </div><!-- End .ratings -->
+                                        @elseif($avarage == 3 || $avarage < 4)
+                                            <div class="ratings">
+                                                <div class="ratings-val" style="width: 60%;"></div>
+                                                <!-- End .ratings-val -->
+                                            </div><!-- End .ratings -->
+                                        @elseif($avarage == 4 || $avarage < 5)
+                                            <div class="ratings">
+                                                <div class="ratings-val" style="width: 80%;"></div>
+                                                <!-- End .ratings-val -->
+                                            </div><!-- End .ratings -->
+                                        @elseif($avarage == 5 || $avarage < 5)
+                                            <div class="ratings">
+                                                <div class="ratings-val" style="width: 100%;"></div>
+                                                <!-- End .ratings-val -->
+                                            </div><!-- End .ratings -->
+                                        @endif
                                         <span class="ratings-text">({{ count($reviews) }} Yorum)</span>
                                     </div><!-- End .rating-container -->
                                 </div><!-- End .product-body -->
@@ -618,7 +645,7 @@
             <div class="container trending-products">
                 <div class="heading heading-flex mb-3">
                     <div class="heading-left">
-                        <h2 class="title">Trending Products</h2><!-- End .title -->
+                        <h2 class="title">Popoüler Ürünler</h2><!-- End .title -->
                     </div><!-- End .heading-left -->
                 </div><!-- End .heading -->
 
@@ -733,13 +760,41 @@
                                                         // ->where('status', 1)
                                                         // ->latest()
                                                         ->get();
+                                                    
+                                                    $avarage = App\Models\Review::where('product_id', $trendproduct->id)
+                                                        // ->where('status', 1)
+                                                        ->avg('rating');
                                                 @endphp
 
                                                 <div class="ratings-container">
-                                                    <div class="ratings">
-                                                        <div class="ratings-val" style="width: 80%;"></div>
-                                                        <!-- End .ratings-val -->
-                                                    </div><!-- End .ratings -->
+                                                    @if ($avarage == 0)
+                                                        -
+                                                    @elseif($avarage == 1 || $avarage < 2)
+                                                        <div class="ratings">
+                                                            <div class="ratings-val" style="width: 20%;"></div>
+                                                            <!-- End .ratings-val -->
+                                                        </div><!-- End .ratings -->
+                                                    @elseif($avarage == 2 || $avarage < 3)
+                                                        <div class="ratings">
+                                                            <div class="ratings-val" style="width: 40%;"></div>
+                                                            <!-- End .ratings-val -->
+                                                        </div><!-- End .ratings -->
+                                                    @elseif($avarage == 3 || $avarage < 4)
+                                                        <div class="ratings">
+                                                            <div class="ratings-val" style="width: 60%;"></div>
+                                                            <!-- End .ratings-val -->
+                                                        </div><!-- End .ratings -->
+                                                    @elseif($avarage == 4 || $avarage < 5)
+                                                        <div class="ratings">
+                                                            <div class="ratings-val" style="width: 80%;"></div>
+                                                            <!-- End .ratings-val -->
+                                                        </div><!-- End .ratings -->
+                                                    @elseif($avarage == 5 || $avarage < 5)
+                                                        <div class="ratings">
+                                                            <div class="ratings-val" style="width: 100%;"></div>
+                                                            <!-- End .ratings-val -->
+                                                        </div><!-- End .ratings -->
+                                                    @endif
                                                     <span class="ratings-text">({{ count($reviews) }} Yorum)</span>
                                                 </div><!-- End .rating-container -->
 
@@ -766,11 +821,11 @@
         <div class="container for-you">
             <div class="heading heading-flex mb-3">
                 <div class="heading-left">
-                    <h2 class="title">Recommendation For You</h2><!-- End .title -->
+                    <h2 class="title">Tavsiye Edilen Ürünler</h2><!-- End .title -->
                 </div><!-- End .heading-left -->
 
                 <div class="heading-right">
-                    <a href="{{ route('products') }}" class="title-link">View All Recommendadion <i
+                    <a href="{{ route('products') }}" class="title-link">Bütün Ürünlerimiz <i
                             class="icon-long-arrow-right"></i></a>
                 </div><!-- End .heading-right -->
             </div><!-- End .heading -->
@@ -806,8 +861,8 @@
                                     </a>
 
                                     <div class="product-action-vertical">
-                                        <a href="#" class="btn-product-icon btn-wishlist"
-                                            title="Add to wishlist"></a>
+                                        <button type="button" id="{{ $product->id }}" onclick="addToWishList(this.id)"
+                                            class="btn-product-icon btn-wishlist" title="Add to wishlist"></button>
                                     </div><!-- End .product-action -->
 
                                     <div class="product-action">
@@ -826,7 +881,7 @@
                                     </div><!-- End .product-cat -->
                                     <h3 class="product-title"><a
                                             href="{{ url('product/details/' . $adviceproduct->id . '/' . $adviceproduct->product_slug) }}">
-                                            {{ $product->product_name }}
+                                            {{ $adviceproduct->product_name }}
                                         </a></h3><!-- End .product-title -->
                                     @if ($adviceproduct->discount_price == null)
                                         <div class="product-price">
@@ -846,13 +901,41 @@
                                             // ->where('status', 1)
                                             // ->latest()
                                             ->get();
+                                        
+                                        $avarage = App\Models\Review::where('product_id', $adviceproduct->id)
+                                            // ->where('status', 1)
+                                            ->avg('rating');
                                     @endphp
 
                                     <div class="ratings-container">
-                                        <div class="ratings">
-                                            <div class="ratings-val" style="width: 60%;"></div>
-                                            <!-- End .ratings-val -->
-                                        </div><!-- End .ratings -->
+                                        @if ($avarage == 0)
+                                            -
+                                        @elseif($avarage == 1 || $avarage < 2)
+                                            <div class="ratings">
+                                                <div class="ratings-val" style="width: 20%;"></div>
+                                                <!-- End .ratings-val -->
+                                            </div><!-- End .ratings -->
+                                        @elseif($avarage == 2 || $avarage < 3)
+                                            <div class="ratings">
+                                                <div class="ratings-val" style="width: 40%;"></div>
+                                                <!-- End .ratings-val -->
+                                            </div><!-- End .ratings -->
+                                        @elseif($avarage == 3 || $avarage < 4)
+                                            <div class="ratings">
+                                                <div class="ratings-val" style="width: 60%;"></div>
+                                                <!-- End .ratings-val -->
+                                            </div><!-- End .ratings -->
+                                        @elseif($avarage == 4 || $avarage < 5)
+                                            <div class="ratings">
+                                                <div class="ratings-val" style="width: 80%;"></div>
+                                                <!-- End .ratings-val -->
+                                            </div><!-- End .ratings -->
+                                        @elseif($avarage == 5 || $avarage < 5)
+                                            <div class="ratings">
+                                                <div class="ratings-val" style="width: 100%;"></div>
+                                                <!-- End .ratings-val -->
+                                            </div><!-- End .ratings -->
+                                        @endif
                                         <span class="ratings-text">({{ count($reviews) }} Yorum)</span>
                                     </div><!-- End .rating-container -->
                                 </div><!-- End .product-body -->

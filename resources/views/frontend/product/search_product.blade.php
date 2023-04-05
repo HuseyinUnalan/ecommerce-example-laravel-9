@@ -3,14 +3,14 @@
     <main class="main">
         <div class="page-header text-center" style="background-image: url({{ asset('frontend/images/page-header-bg.jpg') }})">
             <div class="container">
-                <h1 class="page-title">Grid 3 Columns<span>Shop</span></h1>
+                <h1 class="page-title">{{ $_POST['search'] }}</h1>
             </div><!-- End .container -->
         </div><!-- End .page-header -->
         <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
             <div class="container">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('/') }}">Anasayfa</a></li>
-                    {{-- <li class="breadcrumb-item active" aria-current="page">{{ $products->search }}</li> --}}
+                    <li class="breadcrumb-item active" aria-current="page">{{ $_POST['search'] }}</li>
                 </ol>
             </div><!-- End .container -->
         </nav><!-- End .breadcrumb-nav -->

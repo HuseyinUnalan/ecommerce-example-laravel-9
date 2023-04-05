@@ -155,7 +155,7 @@
 
     <div class="container mt-5 mb-5">
         <article class="card">
-            <header class="card-header"> My Orders / Tracking </header>
+            <header class="card-header"> Sipariş Takip </header>
             <div class="card-body">
                 <div class="row" style="margin-left: 20px; margin-top: 20px;">
                     <div class="col-md-2">

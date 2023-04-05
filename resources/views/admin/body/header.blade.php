@@ -55,44 +55,6 @@
                 </div>
             </div>
 
-            <div class="dropdown d-none d-sm-inline-block">
-                <button type="button" class="btn header-item waves-effect" data-bs-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    <img class="" src="{{ asset('backend/images/flags/us.jpg') }}" alt="Header Language"
-                        height="16">
-                </button>
-                <div class="dropdown-menu dropdown-menu-end">
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <img src="{{ asset('backend/images/flags/spain.jpg') }}" alt="user-image" class="me-1"
-                            height="12">
-                        <span class="align-middle">Spanish</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <img src="{{ asset('backend/images/flags/germany.jpg') }}" alt="user-image" class="me-1"
-                            height="12">
-                        <span class="align-middle">German</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <img src="{{ asset('backend/images/flags/italy.jpg') }}" alt="user-image" class="me-1"
-                            height="12">
-                        <span class="align-middle">Italian</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <img src="{{ asset('backend/images/flags/russia.jpg') }}" alt="user-image" class="me-1"
-                            height="12">
-                        <span class="align-middle">Russian</span>
-                    </a>
-                </div>
-            </div>
-
 
 
             <div class="dropdown d-none d-lg-inline-block ms-1">
@@ -101,99 +63,71 @@
                 </button>
             </div>
 
-            <div class="dropdown d-inline-block">
-                <button type="button" class="btn header-item noti-icon waves-effect"
-                    id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="ri-notification-3-line"></i>
-                    <span class="noti-dot"></span>
-                </button>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
-                    aria-labelledby="page-header-notifications-dropdown">
-                    <div class="p-3">
-                        <div class="row align-items-center">
-                            <div class="col">
-                                <h6 class="m-0"> Notifications </h6>
-                            </div>
-                            <div class="col-auto">
-                                <a href="#!" class="small"> View All</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div data-simplebar style="max-height: 230px;">
-                        <a href="" class="text-reset notification-item">
-                            <div class="d-flex">
-                                <div class="avatar-xs me-3">
-                                    <span class="avatar-title bg-primary rounded-circle font-size-16">
-                                        <i class="ri-shopping-cart-line"></i>
-                                    </span>
-                                </div>
-                                <div class="flex-1">
-                                    <h6 class="mb-1">Your order is placed</h6>
-                                    <div class="font-size-12 text-muted">
-                                        <p class="mb-1">If several languages coalesce the grammar</p>
-                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> 3 min ago</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="" class="text-reset notification-item">
-                            <div class="d-flex">
-                                <img src="{{ asset('backend/images/users/avatar-3.jpg') }}"
-                                    class="me-3 rounded-circle avatar-xs" alt="user-pic">
-                                <div class="flex-1">
-                                    <h6 class="mb-1">James Lemire</h6>
-                                    <div class="font-size-12 text-muted">
-                                        <p class="mb-1">It will seem like simplified English.</p>
-                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> 1 hours ago
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="" class="text-reset notification-item">
-                            <div class="d-flex">
-                                <div class="avatar-xs me-3">
-                                    <span class="avatar-title bg-success rounded-circle font-size-16">
-                                        <i class="ri-checkbox-circle-line"></i>
-                                    </span>
-                                </div>
-                                <div class="flex-1">
-                                    <h6 class="mb-1">Your item is shipped</h6>
-                                    <div class="font-size-12 text-muted">
-                                        <p class="mb-1">If several languages coalesce the grammar</p>
-                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> 3 min ago</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
+            @php
+                $pendings = App\Models\Order::where('status', 'Pending')->get();
+                
+                $orders =
+                    auth()
+                        ->guard('admin')
+                        ->user()->orders == 1;
+            @endphp
 
-                        <a href="" class="text-reset notification-item">
-                            <div class="d-flex">
-                                <img src="{{ asset('backend/images/users/avatar-4.jpg') }}"
-                                    class="me-3 rounded-circle avatar-xs" alt="user-pic">
-                                <div class="flex-1">
-                                    <h6 class="mb-1">Salena Layfield</h6>
-                                    <div class="font-size-12 text-muted">
-                                        <p class="mb-1">As a skeptical Cambridge friend of mine occidental.
-                                        </p>
-                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> 1 hours ago
-                                        </p>
-                                    </div>
+            @if ($orders == true)
+                <div class="dropdown d-inline-block">
+                    <button type="button" class="btn header-item noti-icon waves-effect"
+                        id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="ri-notification-3-line"></i>
+                        <span class="noti-dot"></span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                        aria-labelledby="page-header-notifications-dropdown">
+                        <div class="p-3">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h6 class="m-0"> {{ count($pendings) }} Onay Bekleyen Sipariş </h6>
                                 </div>
+                                {{-- <div class="col-auto">
+                                <a href="#!" class="small"> View All</a>
+                            </div> --}}
                             </div>
-                        </a>
-                    </div>
-                    <div class="p-2 border-top">
-                        <div class="d-grid">
-                            <a class="btn btn-sm btn-link font-size-14 text-center" href="javascript:void(0)">
-                                <i class="mdi mdi-arrow-right-circle me-1"></i> View More..
-                            </a>
                         </div>
+
+
+                        <div data-simplebar style="max-height: 230px;">
+
+
+                            @foreach ($pendings as $pending)
+                                <a href="{{ route('pending.order.details', $pending->id) }}"
+                                    class="text-reset notification-item">
+                                    <div class="d-flex">
+                                        <div class="flex-1">
+                                            <h4>{{ $pending->invoice_no }}</h4>
+                                            <h6 class="mb-1">{{ $pending->name }}</h6>
+                                            <div class="font-size-12 text-muted">
+                                                <p class="mb-1">{{ $pending->amount }} TL</p>
+                                                <p class="mb-0"><i class="mdi mdi-clock-outline"></i>
+                                                    {{ $pending->order_date }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            @endforeach
+
+                        </div>
+
+                        <div class="p-2 border-top">
+                            <div class="d-grid">
+                                <a class="btn btn-sm btn-link font-size-14 text-center"
+                                    href="{{ route('pending.orders') }}">
+                                    <i class="mdi mdi-arrow-right-circle me-1"></i> Daha Fazla..
+                                </a>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-            </div>
-
-
+            @endif
 
             <div class="dropdown d-inline-block user-dropdown">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
@@ -211,14 +145,9 @@
                         Profile</a>
                     <a class="dropdown-item" href="{{ route('admin.change.password') }}"><i
                             class="ri-wallet-2-line align-middle me-1"></i> Şifre Değiştir</a>
-                    <a class="dropdown-item d-block" href="#"><span
-                            class="badge bg-success float-end mt-1">11</span><i
-                            class="ri-settings-2-line align-middle me-1"></i> Settings</a>
-                    <a class="dropdown-item" href="#"><i class="ri-lock-unlock-line align-middle me-1"></i>
-                        Lock screen</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item text-danger" href="{{ route('admin.logout') }}"><i
-                            class="ri-shut-down-line align-middle me-1 text-danger"></i> Logout</a>
+                            class="ri-shut-down-line align-middle me-1 text-danger"></i> Çıkış Yap</a>
                 </div>
             </div>
 

@@ -4,14 +4,14 @@
         <div class="page-header text-center"
             style="background-image: url('{{ asset('frontend/images/page-header-bg.jpg') }}')">
             <div class="container">
-                <h1 class="page-title">Siparişlerim<span>Shop</span></h1>
+                <h1 class="page-title">İade Edilen Siparişler</h1>
             </div><!-- End .container -->
         </div><!-- End .page-header -->
         <nav aria-label="breadcrumb" class="breadcrumb-nav">
             <div class="container">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('/') }}">Anasayfa</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Siparişlerim</li>
+                    <li class="breadcrumb-item active" aria-current="page">İade Edilen Siparişler</li>
                 </ol>
             </div><!-- End .container -->
         </nav><!-- End .breadcrumb-nav -->

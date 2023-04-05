@@ -22,7 +22,7 @@
                         <div class="toolbox">
                             <div class="toolbox-left">
                                 <div class="toolbox-info">
-                                    Showing <span>9 of 56</span> Products
+                                    <span>{{ count($products) }}</span> Adet Ürün
                                 </div><!-- End .toolbox-info -->
                             </div><!-- End .toolbox-left -->
 
@@ -128,13 +128,10 @@
                                                 </a>
 
                                                 <div class="product-action-vertical">
-                                                    <a href="#"
-                                                        class="btn-product-icon btn-wishlist btn-expandable"><span>add to
-                                                            wishlist</span></a>
-                                                    <a href="popup/quickView.html" class="btn-product-icon btn-quickview"
-                                                        title="Quick view"><span>Quick view</span></a>
-                                                    <a href="#" class="btn-product-icon btn-compare"
-                                                        title="Compare"><span>Compare</span></a>
+                                                    <button type="button" id="{{ $product->id }}"
+                                                        onclick="addToWishList(this.id)"
+                                                        class="btn-product-icon btn-wishlist"
+                                                        title="Add to wishlist"></button>
                                                 </div><!-- End .product-action-vertical -->
 
                                                 <div class="product-action">
@@ -175,14 +172,42 @@
                                                         // ->where('status', 1)
                                                         ->latest()
                                                         ->get();
+                                                    
+                                                    $avarage = App\Models\Review::where('product_id', $product->id)
+                                                        // ->where('status', 1)
+                                                        ->avg('rating');
                                                 @endphp
 
 
                                                 <div class="ratings-container">
+                                                    @if ($avarage == 0)
+                                                    Henüz Değerlendirme Yok
+                                                @elseif($avarage == 1 || $avarage < 2)
                                                     <div class="ratings">
-                                                        <div class="ratings-val" style="width: 0%;"></div>
+                                                        <div class="ratings-val" style="width: 20%;"></div>
                                                         <!-- End .ratings-val -->
                                                     </div><!-- End .ratings -->
+                                                @elseif($avarage == 2 || $avarage < 3)
+                                                    <div class="ratings">
+                                                        <div class="ratings-val" style="width: 40%;"></div>
+                                                        <!-- End .ratings-val -->
+                                                    </div><!-- End .ratings -->
+                                                @elseif($avarage == 3 || $avarage < 4)
+                                                    <div class="ratings">
+                                                        <div class="ratings-val" style="width: 60%;"></div>
+                                                        <!-- End .ratings-val -->
+                                                    </div><!-- End .ratings -->
+                                                @elseif($avarage == 4 || $avarage < 5)
+                                                    <div class="ratings">
+                                                        <div class="ratings-val" style="width: 80%;"></div>
+                                                        <!-- End .ratings-val -->
+                                                    </div><!-- End .ratings -->
+                                                @elseif($avarage == 5 || $avarage < 5)
+                                                    <div class="ratings">
+                                                        <div class="ratings-val" style="width: 100%;"></div>
+                                                        <!-- End .ratings-val -->
+                                                    </div><!-- End .ratings -->
+                                                @endif
                                                     <span class="ratings-text">
                                                         ({{ count($reviews) }} Yorum)
                                                     </span>

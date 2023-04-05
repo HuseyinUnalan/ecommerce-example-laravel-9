@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Invoice</title>
+    <title>{{ $order->invoice_no }} Fatura</title>
 
     <style type="text/css">
         * {
@@ -66,14 +66,14 @@
         <tr>
             <td valign="top">
                 <!-- {{-- <img src="" alt="" width="150"/> --}} -->
-                <h2 style="color: green; font-size: 26px;"><strong>Hseyn</strong></h2>
+                <h2 style="color: green; font-size: 26px;"><strong>Kolay Alisveris</strong></h2>
             </td>
             <td class="td-right">
                 <pre class="font">
-               EasyShop Head Office
-               Email:support@easylearningbd.com <br>
-               Mob: 1245454545 <br>
-               Dhaka 1207,Dhanmondi:#4 <br>
+              Kolay Alisveris
+               Email: kolay@gmail.com <br>
+               Telefon: 555 555 55 55 <br>
+                <br>
               
             </pre>
             </td>
@@ -82,27 +82,27 @@
     </table>
 
 
-    <table width="100%" style="background:white; padding:2px;""></table>
+    <table width="100%" style="background:white; padding:2px;"></table>
 
     <table width="100%" style="background: #F7F7F7; padding:0 5 0 5px;" class="font">
         <tr>
             <td>
                 <p class="font" style="margin-left: 20px;">
-                    <strong>Name:</strong> {{ $order->name }}<br>
+                    <strong>Ad Soyad:</strong> {{ $order->name }}<br>
                     <strong>Email:</strong> {{ $order->email }} <br>
-                    <strong>Phone:</strong> {{ $order->phone }} <br>
+                    <strong>Telefon:</strong> {{ $order->phone }} <br>
                     @php
                         $div = $order->division->division_name;
                         $dis = $order->district->districts_name;
                     @endphp
-                    <strong>Address:</strong> {{ $div }},{{ $dis }} <br>
-                    <strong>Post Code:</strong> {{ $order->post_code }}
+                    <strong>Adres:</strong> {{ $div }},{{ $dis }} <br>
+                    <strong>Posta Kodu:</strong> {{ $order->post_code }}
                 </p>
             </td>
             <td>
                 <p class="font">
-                <h3><span style="color: green;">Invoice:</span> #{{ $order->invoice_no }}</h3>
-                Sipariş Tarihi : {{ $order->order_date }} <br>
+                <h3><span style="color: green;">Fatura:</span> #{{ $order->invoice_no }}</h3>
+                Siparis Tarihi : {{ $order->order_date }} <br>
                 Teslimat Tarihi : {{ $order->delivered_date }} <br>
                 Ödeme Tipi : {{ $order->payment_method }} </span>
                 </p>
@@ -110,13 +110,13 @@
         </tr>
     </table>
     <br />
-    <h3>Products</h3>
+    <h3>Ürünler</h3>
 
 
     <table width="100%">
         <thead style="background-color: green; color:#FFFFFF;">
             <tr class="font">
-                <th>Ürün Fotoğraf</th>
+                <th>Ürün Fotograf</th>
                 <th>Ürün Ad</th>
                 <th>Ürün Kod</th>
                 <th>Adet</th>
@@ -127,14 +127,14 @@
         <tbody>
 
 
-           
+
 
             @foreach ($orderItem as $item)
                 <tr class="font">
                     <td class="td-center">
 
-                        <img src="{{ public_path($item->product->product_thambnail_photo) }}" height="60px;" width="60px;"
-                            alt="">
+                        <img src="{{ public_path($item->product->product_thambnail_photo) }}" height="60px;"
+                            width="60px;" alt="">
                     </td>
 
                     <td class="td-center"> {{ $item->product->product_name }}</td>
@@ -153,8 +153,8 @@
     <table width="100%" style=" padding:0 10px 0 10px;">
         <tr>
             <td class="td-right">
-              <h2><span style="color: green;">Subtotal:</span> {{ $order->amount }} TL</h2>
-              <h2><span style="color: green;">Total:</span> {{ $order->amount }} TL</h2>
+                <h2><span style="color: green;">Subtotal:</span> {{ $order->amount }} TL</h2>
+                <h2><span style="color: green;">Total:</span> {{ $order->amount }} TL</h2>
                 {{-- <h2><span style="color: green;">Full Payment PAID</h2> --}}
             </td>
         </tr>

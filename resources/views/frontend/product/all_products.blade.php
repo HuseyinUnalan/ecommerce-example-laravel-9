@@ -3,15 +3,14 @@
     <main class="main">
         <div class="page-header text-center" style="background-image: url({{ asset('frontend/images/page-header-bg.jpg') }})">
             <div class="container">
-                <h1 class="page-title">Grid 3 Columns<span>Shop</span></h1>
+                <h1 class="page-title">Ürünler</h1>
             </div><!-- End .container -->
         </div><!-- End .page-header -->
         <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
             <div class="container">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Shop</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Grid 3 Columns</li>
+                    <li class="breadcrumb-item"><a href="{{ route('products') }}">Anasayfa</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Ürünler</li>
                 </ol>
             </div><!-- End .container -->
         </nav><!-- End .breadcrumb-nav -->
@@ -23,7 +22,7 @@
                         <div class="toolbox">
                             <div class="toolbox-left">
                                 <div class="toolbox-info">
-                                    Showing <span>9 of 56</span> Products
+                                    <span> {{ count($products) }} </span> Adet Ürün
                                 </div><!-- End .toolbox-info -->
                             </div><!-- End .toolbox-left -->
 
@@ -129,20 +128,20 @@
                                                 </a>
 
                                                 <div class="product-action-vertical">
-                                                    <a href="#"
-                                                        class="btn-product-icon btn-wishlist btn-expandable"><span>add to
-                                                            wishlist</span></a>
-                                                    <a href="popup/quickView.html" class="btn-product-icon btn-quickview"
-                                                        title="Quick view"><span>Quick view</span></a>
-                                                    <a href="#" class="btn-product-icon btn-compare"
-                                                        title="Compare"><span>Compare</span></a>
+                                                    <div class="product-action-vertical">
+                                                        <button type="button" id="{{ $product->id }}"
+                                                            onclick="addToWishList(this.id)"
+                                                            class="btn-product-icon btn-wishlist"
+                                                            title="Add to wishlist"></button>
+                                                    </div><!-- End .product-action -->
                                                 </div><!-- End .product-action-vertical -->
 
                                                 <div class="product-action">
                                                     <a href="{{ url('product/details/' . $product->id . '/' . $product->product_slug) }}"
                                                         class="btn-product btn-cart" title="Ürün Detay"><span></span></a>
-                                                    <a data-toggle="modal" data-target="#exampleModal" id="{{ $product->id }}"
-                                                        onclick="productView(this.id)" class="btn-product" title="Quick view"><i
+                                                    <a data-toggle="modal" data-target="#exampleModal"
+                                                        id="{{ $product->id }}" onclick="productView(this.id)"
+                                                        class="btn-product" title="Quick view"><i
                                                             class="fa fa-eye"></i></a>
                                                 </div><!-- End .product-action -->
 
@@ -177,13 +176,41 @@
                                                         // ->where('status', 1)
                                                         ->latest()
                                                         ->get();
+                                                    
+                                                    $avarage = App\Models\Review::where('product_id', $product->id)
+                                                        // ->where('status', 1)
+                                                        ->avg('rating');
                                                 @endphp
 
                                                 <div class="ratings-container">
-                                                    <div class="ratings">
-                                                        <div class="ratings-val" style="width: 0%;"></div>
-                                                        <!-- End .ratings-val -->
-                                                    </div><!-- End .ratings -->
+                                                    @if ($avarage == 0)
+                                                        Henüz Değerlendirme Yok
+                                                    @elseif($avarage == 1 || $avarage < 2)
+                                                        <div class="ratings">
+                                                            <div class="ratings-val" style="width: 20%;"></div>
+                                                            <!-- End .ratings-val -->
+                                                        </div><!-- End .ratings -->
+                                                    @elseif($avarage == 2 || $avarage < 3)
+                                                        <div class="ratings">
+                                                            <div class="ratings-val" style="width: 40%;"></div>
+                                                            <!-- End .ratings-val -->
+                                                        </div><!-- End .ratings -->
+                                                    @elseif($avarage == 3 || $avarage < 4)
+                                                        <div class="ratings">
+                                                            <div class="ratings-val" style="width: 60%;"></div>
+                                                            <!-- End .ratings-val -->
+                                                        </div><!-- End .ratings -->
+                                                    @elseif($avarage == 4 || $avarage < 5)
+                                                        <div class="ratings">
+                                                            <div class="ratings-val" style="width: 80%;"></div>
+                                                            <!-- End .ratings-val -->
+                                                        </div><!-- End .ratings -->
+                                                    @elseif($avarage == 5 || $avarage < 5)
+                                                        <div class="ratings">
+                                                            <div class="ratings-val" style="width: 100%;"></div>
+                                                            <!-- End .ratings-val -->
+                                                        </div><!-- End .ratings -->
+                                                    @endif
                                                     <span class="ratings-text">({{ count($reviews) }} Yorum)</span>
                                                 </div><!-- End .rating-container -->
 

@@ -70,23 +70,17 @@
                 <li class="menu-title">Menu</li>
 
                 <li>
-                    <a href="index.html" class="waves-effect">
-                        <i class="ri-dashboard-line"></i><span class="badge rounded-pill bg-success float-end">3</span>
+                    <a href="{{ url('/admin/dashboard') }}" class="waves-effect">
+                        <i class="ri-dashboard-line"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
 
-                <li>
-                    <a href="calendar.html" class=" waves-effect">
-                        <i class="ri-calendar-2-line"></i>
-                        <span>Calendar</span>
-                    </a>
-                </li>
 
                 @if ($product == true)
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
-                            <i class="ri-mail-send-line"></i>
+                            <i class="fas fa-clipboard-list"></i>
                             <span>Ürün İşlemleri</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
@@ -102,7 +96,7 @@
                 @if ($slider == true)
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
-                            <i class="ri-mail-send-line"></i>
+                            <i class="ri-layout-3-line"></i>
                             <span>Slider İşlemleri</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
@@ -116,7 +110,7 @@
                 @if ($coupon == true)
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
-                            <i class="ri-mail-send-line"></i>
+                            <i class="fas fa-ticket-alt"></i>
                             <span>Kupon İşlemleri</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
@@ -130,7 +124,7 @@
                 @if ($shipping == true)
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
-                            <i class="ri-mail-send-line"></i>
+                            <i class="fas fa-shipping-fast"></i>
                             <span>Kargo İşlemleri</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
@@ -147,7 +141,7 @@
                 @if ($orders == true)
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
-                            <i class="ri-mail-send-line"></i>
+                            <i class="fas fa-shopping-cart"></i>
                             <span>Sipariş İşlemleri</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
@@ -166,7 +160,7 @@
                 @if ($reports == true)
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
-                            <i class="ri-mail-send-line"></i>
+                            <i class="fas fa-file-alt"></i>
                             <span>Rapor İşlemleri</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
@@ -179,7 +173,7 @@
                 @if ($alluser == true)
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
-                            <i class="ri-mail-send-line"></i>
+                            <i class="fas fa-users"></i>
                             <span>Kullanıcılar</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
@@ -192,7 +186,7 @@
                 @if ($settings == true)
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
-                            <i class="ri-mail-send-line"></i>
+                            <i class="fas fa-cog"></i>
                             <span>Genel Ayarlar</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
@@ -206,7 +200,7 @@
                 @if ($returnorder == true)
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
-                            <i class="ri-mail-send-line"></i>
+                            <i class="fas fa-undo"></i>
                             <span>İade İşlemleri</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
@@ -220,7 +214,7 @@
                 @if ($reviews == true)
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
-                            <i class="ri-mail-send-line"></i>
+                            <i class="far fa-comment"></i>
                             <span>Yorum İşlemleri</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
@@ -231,15 +225,15 @@
 
 
                 @if ($adminuserrole == true)
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="ri-mail-send-line"></i>
-                        <span>Admin Kullanıcı Ayarları</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('all.admin.user') }}">Admin Kullanıcılar</a></li>
-                    </ul>
-                </li>
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="fas fa-user-cog"></i>
+                            <span>Admin Kullanıcı Ayarları</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{ route('all.admin.user') }}">Admin Kullanıcılar</a></li>
+                        </ul>
+                    </li>
                 @endif
 
 
